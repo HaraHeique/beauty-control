@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32014.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E7CE683E-7DE7-4D30-BD6C-10ECCD12DF1A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8602160D-E62E-4F83-A2A8-E8B79F9AB627}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution-items", "solution-items", "{0766158C-DB14-497A-BEAD-6538798E8309}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitignore = .gitignore
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeautyControl.API", "src\BeautyControl.API\BeautyControl.API.csproj", "{E84DF4CF-EC2F-44E8-A73E-F9E02148EA49}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E84DF4CF-EC2F-44E8-A73E-F9E02148EA49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E84DF4CF-EC2F-44E8-A73E-F9E02148EA49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E84DF4CF-EC2F-44E8-A73E-F9E02148EA49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E84DF4CF-EC2F-44E8-A73E-F9E02148EA49}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E84DF4CF-EC2F-44E8-A73E-F9E02148EA49} = {E7CE683E-7DE7-4D30-BD6C-10ECCD12DF1A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7035EE62-7F00-4A10-AD4B-06E7C7FBBAC9}
+	EndGlobalSection
+EndGlobal
