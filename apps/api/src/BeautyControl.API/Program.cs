@@ -8,7 +8,7 @@ var app = builder.Build();
 
 ConfigurePipeline(app);
 
-app.Run();
+await app.RunAsync();
 
 #region Métodos locais
 
