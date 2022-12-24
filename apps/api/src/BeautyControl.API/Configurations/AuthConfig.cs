@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NetDevPack.Security.Jwt.Core.Interfaces;
+using NetDevPack.Security.PasswordHasher.Core;
 
 namespace BeautyControl.API.Configurations
 {
@@ -22,11 +23,15 @@ namespace BeautyControl.API.Configurations
                 options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
             );
 
-            builder.Services.AddIdentityCore<AppUser>()
+            builder.Services.AddIdentityCore<AppUser>(SetupIdentityOptions)
                 .AddRoles<AppRole>()
                 .AddEntityFrameworkStores<AppIdentityContext>()
                 .AddErrorDescriber<IdentityTranslateErros>()
                 .AddDefaultTokenProviders();
+
+            builder.Services.UpgradePasswordSecurity()
+                .WithStrenghten(PasswordHasherStrenght.Moderate) // Sensitive é o mais forte
+                .UseArgon2<AppUser>();
 
             builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection(AuthSettings.Key));
 
@@ -65,6 +70,18 @@ namespace BeautyControl.API.Configurations
                 });
 
                 builder.Services.AddAuthorization();
+            }
+
+            void SetupIdentityOptions(IdentityOptions options)
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequiredUniqueChars = 1;
+                options.Password.RequiredLength = 8;
+
+                options.User.RequireUniqueEmail = true;
             }
 
             #endregion
