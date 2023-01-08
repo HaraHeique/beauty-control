@@ -19,12 +19,7 @@ namespace BeautyControl.API.Configurations
                 .AddJwksManager()
                 .PersistKeysInMemory();
 
-            builder.Services.AddDbContext<AppIdentityContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
-            );
-
-            builder.Services.AddIdentityCore<AppUser>(SetupIdentityOptions)
-                .AddRoles<AppRole>()
+            builder.Services.AddIdentity<AppUser, AppRole>(SetupIdentityOptions)
                 .AddEntityFrameworkStores<AppIdentityContext>()
                 .AddErrorDescriber<IdentityTranslateErros>()
                 .AddDefaultTokenProviders();
@@ -34,6 +29,10 @@ namespace BeautyControl.API.Configurations
                 .UseArgon2<AppUser>();
 
             builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection(AuthSettings.Key));
+
+            builder.Services.AddDbContext<AppIdentityContext>(
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
+            );
 
             AddJwtValidationConfig();
 

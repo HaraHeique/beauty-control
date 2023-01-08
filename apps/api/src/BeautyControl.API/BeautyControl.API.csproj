@@ -11,6 +11,11 @@
   <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" Version="4.0.1" />
     <PackageReference Include="Ardalis.ApiEndpoints.Swashbuckle" Version="4.0.1" />
+    <PackageReference Include="FluentResults" Version="3.15.1" />
+    <PackageReference Include="FluentResults.Extensions.FluentAssertions" Version="2.1.0" />
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="MediatR" Version="11.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1" />
@@ -22,13 +27,13 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
     <PackageReference Include="NetDevPack.Security.Jwt.AspNetCore" Version="7.0.2" />
+    <PackageReference Include="NetDevPack.Security.PasswordHasher.Argon2" Version="7.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 	<PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Domain\" />
-    <Folder Include="Features\Account\CreateNewUser\" />
   </ItemGroup>
 
 </Project>
