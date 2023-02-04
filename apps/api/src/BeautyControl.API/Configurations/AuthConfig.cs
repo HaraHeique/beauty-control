@@ -21,7 +21,7 @@ namespace BeautyControl.API.Configurations
 
             builder.Services.AddIdentity<AppUser, AppRole>(SetupIdentityOptions)
                 .AddEntityFrameworkStores<AppIdentityContext>()
-                .AddErrorDescriber<IdentityTranslateErros>()
+                .AddErrorDescriber<IdentityTranslateErrorsDescriber>()
                 .AddDefaultTokenProviders();
 
             builder.Services.UpgradePasswordSecurity()

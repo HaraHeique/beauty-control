@@ -17,7 +17,7 @@ static void ConfigureServices(WebApplicationBuilder builder)
     builder.AddApiConfiguration();
     builder.AddAuthConfiguration();
     builder.AddSwaggerConfiguration();
-    builder.RegisterDependecies();
+    builder.RegisterDependencies();
 }
 
 static void ConfigurePipeline(WebApplication app)

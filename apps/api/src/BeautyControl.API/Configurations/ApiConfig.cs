@@ -25,6 +25,7 @@ namespace BeautyControl.API.Configurations
         public static void UseApiConfiguration(this WebApplication app)
         {
             app.UseHttpsRedirection();
+            app.UseHsts();
 
             app.UseRouting();
 
