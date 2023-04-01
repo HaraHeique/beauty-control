@@ -25,7 +25,7 @@ namespace BeautyControl.API.Configurations
                 .AddDefaultTokenProviders();
 
             builder.Services.UpgradePasswordSecurity()
-                .WithStrenghten(PasswordHasherStrenght.Moderate) // Sensitive é o mais forte
+                .WithStrengthen(PasswordHasherStrength.Moderate) // Sensitive é o mais forte
                 .UseArgon2<AppUser>();
 
             builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection(AuthSettings.Key));

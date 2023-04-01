@@ -2,6 +2,8 @@ using BeautyControl.API.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configure();
+
 ConfigureServices(builder);
 
 var app = builder.Build();
@@ -14,6 +16,7 @@ await app.RunAsync();
 
 static void ConfigureServices(WebApplicationBuilder builder)
 {
+    builder.AddLogConfiguration();
     builder.AddApiConfiguration();
     builder.AddAuthConfiguration();
     builder.AddSwaggerConfiguration();

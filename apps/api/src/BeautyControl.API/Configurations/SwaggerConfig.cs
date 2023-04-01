@@ -1,5 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
-using System.ComponentModel;
+﻿using BeautyControl.API.Extensions;
+using Microsoft.OpenApi.Models;
 
 namespace BeautyControl.API.Configurations
 {
@@ -27,13 +27,7 @@ namespace BeautyControl.API.Configurations
                 });
 
                 options.EnableAnnotations();
-
-                options.CustomSchemaIds(type =>
-                {
-                    return type.GetCustomAttributes(inherit: false)
-                        .OfType<DisplayNameAttribute>()
-                        .FirstOrDefault()?.DisplayName ?? type.Name;
-                });
+                options.CustomSchemaIds(type => type.GetDisplayName());
 
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
