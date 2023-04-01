@@ -1,22 +1,19 @@
-﻿using System.ComponentModel;
-
-namespace BeautyControl.API.Features.Account.Common
+﻿namespace BeautyControl.API.Features.Account.Common
 {
-    [DisplayName("LoggedUserResponse")]
     public record LoggedUserResponse
     {
         public string AccessToken { get; init; }
         public double ExpiresIn { get; init; }
-        public UserToken TokenInfo { get; init; }
+        public UserTokenResponse TokenInfo { get; init; }
 
-        public record UserToken
+        public record UserTokenResponse
         {
             public int Id { get; init; }
             public string UserName { get; init; }
             public string Email { get; init; }
-            public IEnumerable<UserClaim> Claims { get; init; }
+            public IEnumerable<UserClaimResponse> Claims { get; init; }
 
-            public record UserClaim
+            public record UserClaimResponse
             {
                 public string Type { get; init; }
                 public string Value { get; init; }

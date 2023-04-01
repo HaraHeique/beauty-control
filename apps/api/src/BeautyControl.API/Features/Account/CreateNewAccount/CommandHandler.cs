@@ -1,7 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
 using BeautyControl.API.Features.Account.Common;
 using BeautyControl.API.Features.Common.Endpoints;
-using BeautyControl.API.Features.Common.Messaging;
 using BeautyControl.API.Infra.Identity.Models;
 using FluentResults;
 using FluentValidation;
@@ -15,8 +14,8 @@ using System.Text.RegularExpressions;
 
 namespace BeautyControl.API.Features.Account.CreateNewAccount
 {
-    [DisplayName("CreateNewAccount")]
-    public record class Command : BaseCommand<LoggedUserResponse>
+    [DisplayName("CreateNewAccountRequest")]
+    public record class Command: IRequest<Result<LoggedUserResponse>>
     {
         public string? UserName { get; }
         public string? Email { get; }
@@ -29,13 +28,6 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
             Email = email;
             Password = password;
             PasswordConfirmation = passwordConfirmation;
-        }
-
-        public override bool IsValid()
-        {
-            Validate(this, new CommandValidation());
-
-            return base.IsValid();
         }
 
         public class CommandValidation : AbstractValidator<Command>
@@ -53,7 +45,7 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
 
                 RuleFor(c => c.Password)
                     .NotEmpty().WithMessage(mensageCampoObrigatorio).WithName("senha")
-                    .Must(HasValidPassword!).WithMessage("A senha inserida é inválida. É necessário conter de 8 a 15 carecteres com ao menos um número, um caractere espacial, letras minúsculas e maiúsculas.");
+                    .Must(HasValidPassword!).WithMessage("A senha inserida é inválida. É necessário conter de 8 a 15 carecteres com ao menos um número, um caractere espacial, letras minúsculas e maiúsculas");
 
                 RuleFor(c => c.PasswordConfirmation)
                     .NotEmpty().WithMessage(mensageCampoObrigatorio).WithName("confirmação de senha")
@@ -107,7 +99,7 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
         }
     }
 
-    public class CommandHandler : IRequestHandler<Command, Result<CommandResult>>
+    public class CommandHandler : IRequestHandler<Command, Result<LoggedUserResponse>>
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
@@ -118,10 +110,8 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
             _signInManager = signInManager;
         }
 
-        public async Task<Result<CommandResult>> Handle(Command request, CancellationToken cancellationToken)
+        public async Task<Result<LoggedUserResponse>> Handle(Command request, CancellationToken cancellationToken)
         {
-            if (!request.IsValid()) return request.Response;
-
             var userCreated = new AppUser
             {
                 UserName = request.UserName,
@@ -131,16 +121,16 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
                 LockoutEnabled = true,
                 Active = true
             };
+            
+            //var identityResult = await _userManager.CreateAsync(userCreated, request.Password!);
 
-            var identityResult = await _userManager.CreateAsync(userCreated, request.Password!);
+            //if (!identityResult.Succeeded)
+            //    return Result.Fail(identityResult.Errors.Select(error => error.Description));
 
-            if (!identityResult.Succeeded)
-                return Result.Fail(identityResult.Errors.Select(error => error.Description));
-
-            return Result.Ok();
+            return Result.Ok(new LoggedUserResponse());
         }
 
-        private async Task<CommandResult> GenerateToken(string email)
+        private async Task<LoggedUserResponse> GenerateToken(string email)
         {
             throw new NotImplementedException();
         }
