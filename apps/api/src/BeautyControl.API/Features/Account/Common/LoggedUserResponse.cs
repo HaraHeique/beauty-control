@@ -1,5 +1,6 @@
 ﻿namespace BeautyControl.API.Features.Account.Common
 {
+    #nullable disable
     public record LoggedUserResponse
     {
         public string AccessToken { get; init; }

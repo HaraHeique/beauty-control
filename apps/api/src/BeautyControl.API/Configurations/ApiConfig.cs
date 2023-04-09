@@ -11,6 +11,19 @@ namespace BeautyControl.API.Configurations
 
             builder.Services.Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInvalidFilter = true);
 
+            builder.Services.AddApiVersioning(opt =>
+            {
+                opt.DefaultApiVersion = new ApiVersion(1, 0);
+                opt.ReportApiVersions = true;
+                opt.AssumeDefaultVersionWhenUnspecified = true;
+            });
+
+            builder.Services.AddVersionedApiExplorer(opt =>
+            {
+                opt.GroupNameFormat = "'v'VVV";
+                opt.SubstituteApiVersionInUrl = true;
+            });
+
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("TotalAccess", builder =>
@@ -26,6 +39,8 @@ namespace BeautyControl.API.Configurations
         {
             app.UseHttpsRedirection();
             app.UseHsts();
+
+            app.UseApiVersioning();
 
             app.UseRouting();
 

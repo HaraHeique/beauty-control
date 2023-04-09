@@ -70,6 +70,7 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
     }
 
     [AllowAnonymous]
+    [ApiVersion("1")]
     [Route(Routes.AccountUri)]
     public class Endpoint : EndpointBaseAsync
         .WithRequest<Command>

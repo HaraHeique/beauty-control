@@ -1,4 +1,6 @@
 ﻿using BeautyControl.API.Extensions;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace BeautyControl.API.Configurations
@@ -61,9 +63,14 @@ namespace BeautyControl.API.Configurations
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI(config =>
+                app.UseSwaggerUI(options =>
                 {
-                    config.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                    var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
+
+                    foreach (var description in provider.ApiVersionDescriptions.Reverse())
+                    {
+                        options.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    }
                 });
             }
         }
