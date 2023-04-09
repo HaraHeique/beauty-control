@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
+using System.Threading.RateLimiting;
 
 namespace BeautyControl.API.Configurations
 {
@@ -9,30 +11,68 @@ namespace BeautyControl.API.Configurations
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInvalidFilter = true);
+            builder.Services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);
 
-            builder.Services.AddApiVersioning(opt =>
-            {
-                opt.DefaultApiVersion = new ApiVersion(1, 0);
-                opt.ReportApiVersions = true;
-                opt.AssumeDefaultVersionWhenUnspecified = true;
-            });
+            AddVersionConfig(builder);
 
-            builder.Services.AddVersionedApiExplorer(opt =>
-            {
-                opt.GroupNameFormat = "'v'VVV";
-                opt.SubstituteApiVersionInUrl = true;
-            });
+            AddCorsConfig(builder);
 
-            builder.Services.AddCors(options =>
+            AddRateLimitingConfig(builder);
+
+            static void AddVersionConfig(WebApplicationBuilder builder)
             {
-                options.AddPolicy("TotalAccess", builder =>
+                builder.Services.AddApiVersioning(opt =>
                 {
-                    builder.AllowAnyHeader()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader();
+                    opt.DefaultApiVersion = new ApiVersion(1, 0);
+                    opt.ReportApiVersions = true;
+                    opt.AssumeDefaultVersionWhenUnspecified = true;
                 });
-            });
+
+                builder.Services.AddVersionedApiExplorer(opt =>
+                {
+                    opt.GroupNameFormat = "'v'VVV";
+                    opt.SubstituteApiVersionInUrl = true;
+                });
+            }
+
+            static void AddCorsConfig(WebApplicationBuilder builder)
+            {
+                builder.Services.AddCors(options =>
+                {
+                    options.AddPolicy("TotalAccess", builder =>
+                    {
+                        builder.AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader();
+                    });
+                });
+            }
+
+            static void AddRateLimitingConfig(WebApplicationBuilder builder)
+            {
+                builder.Services.AddRateLimiter(options =>
+                {
+                    options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
+
+                    // Global para aplicação toda
+                    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext => RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(), factory: partition => new FixedWindowRateLimiterOptions
+                    {
+                        AutoReplenishment = true,
+                        PermitLimit = 10,
+                        QueueLimit = 0,
+                        Window = TimeSpan.FromSeconds(1)
+                    }));
+
+                    // Para um grupo de endpoints (tem que usar a annotation/decorator EnableRateLimiting) 
+                    options.AddFixedWindowLimiter("Api", options =>
+                    {
+                        options.PermitLimit = 10;
+                        options.Window = TimeSpan.FromSeconds(1);
+                        options.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+                        options.QueueLimit = 5;
+                    });
+                });
+            }
         }
 
         public static void UseApiConfiguration(this WebApplication app)
@@ -41,6 +81,8 @@ namespace BeautyControl.API.Configurations
             app.UseHsts();
 
             app.UseApiVersioning();
+
+            app.UseRateLimiter();
 
             app.UseRouting();
 
