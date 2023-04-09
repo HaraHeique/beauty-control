@@ -29,6 +29,8 @@ namespace BeautyControl.API.Configurations
 
             app.UseRouting();
 
+            app.UseStaticFiles();
+
             app.UseCors("TotalAccess");
 
             app.UseAuthConfiguration();
