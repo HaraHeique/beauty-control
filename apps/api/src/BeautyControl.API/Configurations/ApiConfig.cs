@@ -19,6 +19,8 @@ namespace BeautyControl.API.Configurations
 
             AddRateLimitingConfig(builder);
 
+            #region Métodos Locais
+
             static void AddVersionConfig(WebApplicationBuilder builder)
             {
                 builder.Services.AddApiVersioning(opt =>
@@ -73,6 +75,8 @@ namespace BeautyControl.API.Configurations
                     });
                 });
             }
+
+            #endregion
         }
 
         public static void UseApiConfiguration(this WebApplication app)
