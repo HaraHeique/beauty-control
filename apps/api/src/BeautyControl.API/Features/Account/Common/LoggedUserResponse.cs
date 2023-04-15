@@ -4,7 +4,7 @@ namespace BeautyControl.API.Features.Account.Common
     public record LoggedUserResponse
     {
         public string AccessToken { get; init; }
-        public double ExpiresIn { get; init; }
+        public double ExpiresInSeconds { get; init; }
         public UserTokenResponse TokenInfo { get; init; }
     }
 

@@ -34,6 +34,9 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
             if (!identityResult.Succeeded)
                 return Result.Fail(identityResult.Errors.Select(error => error.Description));
 
+            // TODO: 1 - Publicar evento para enviar email para usuário
+            // TODO: 2 - Publicar evento para criar cliente a partir do usuário criado (talvez este cara chama o envio do email para usuário)
+
             var response = await _jwtGenerator.GenerateToken(userCreated.Email!);
 
             return Result.Ok(response);

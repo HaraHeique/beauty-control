@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace BeautyControl.API.Features.Account.CreateNewAccount
+namespace BeautyControl.API.Features.Account.LoginAccount
 {
     [AllowAnonymous]
     [ApiVersion("1")]
@@ -17,18 +17,21 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
     {
         private readonly IMediator _mediator;
 
-        public Endpoint(IMediator mediator) => _mediator = mediator;
+        public Endpoint(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
-        [HttpPost("new-account")]
+        [HttpPost("login")]
         [SwaggerOperation(
-            Summary = "Criar um novo usuário",
-            Description = "Criar um novo usuário na base de dados",
-            OperationId = "Account.CreateNewAccount",
+            Summary = "Login do usuário",
+            Description = "Realizar o login de usuário a partir de Email e Senha",
+            OperationId = "Account.LoginAccount",
             Tags = new[] { "Account" }
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoggedUserResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]
-        public override async Task<ActionResult<LoggedUserResponse>> HandleAsync([FromBody] Command request, CancellationToken cancellationToken = default)
+        public async override Task<ActionResult<LoggedUserResponse>> HandleAsync([FromBody] Command request, CancellationToken cancellationToken = default)
         {
             var result = await _mediator.Send(request, cancellationToken);
 

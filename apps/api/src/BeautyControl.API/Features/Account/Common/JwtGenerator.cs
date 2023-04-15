@@ -49,11 +49,12 @@ namespace BeautyControl.API.Features.Account.Common
                 return new LoggedUserResponse
                 {
                     AccessToken = encodedToken,
-                    ExpiresIn = TimeSpan.FromHours(_authSettings.ExpiresInHours).TotalSeconds,
+                    ExpiresInSeconds = TimeSpan.FromHours(_authSettings.ExpiresInHours).TotalSeconds,
                     TokenInfo = new UserTokenResponse
                     {
                         Id = user!.Id,
                         Email = user!.Email,
+                        UserName = user!.UserName,
                         Claims = claims!.Select(c => new UserClaimResponse
                         {
                             Type = c.Type,
