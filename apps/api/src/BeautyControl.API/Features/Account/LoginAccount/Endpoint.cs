@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using BeautyControl.API.Features.Account.Common;
 using BeautyControl.API.Features.Common.Endpoints;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
