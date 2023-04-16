@@ -7,7 +7,7 @@ using NetDevPack.Security.Jwt.Core.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace BeautyControl.API.Features.Account.Common
+namespace BeautyControl.API.Features.Account.@Common
 {
     public class JwtGenerator
     {
@@ -40,7 +40,7 @@ namespace BeautyControl.API.Features.Account.Common
                 var user = await _userManager.FindByEmailAsync(email);
 
                 if (user == null) throw new ArgumentException("Email de usuário inválido");
-                
+
                 return user;
             }
 

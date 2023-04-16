@@ -1,4 +1,4 @@
-﻿namespace BeautyControl.API.Features.Common.Endpoints
+﻿namespace BeautyControl.API.Features.@Common.Endpoints
 {
     public static class Routes
     {

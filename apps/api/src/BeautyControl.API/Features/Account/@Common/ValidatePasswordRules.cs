@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace BeautyControl.API.Features.Account.Common
+namespace BeautyControl.API.Features.Account.@Common
 {
     public class ValidatePasswordRules
     {

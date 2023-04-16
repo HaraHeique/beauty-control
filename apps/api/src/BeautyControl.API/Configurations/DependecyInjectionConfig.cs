@@ -1,5 +1,4 @@
-﻿using BeautyControl.API.Features.Account.Common;
-using BeautyControl.API.Features.Common.PipelineBehaviors;
+﻿using BeautyControl.API.Features.Common.PipelineBehaviors;
 using FluentValidation;
 using MediatR;
 using System.Reflection;
