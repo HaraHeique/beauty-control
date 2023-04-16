@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BeautyControl.API.Middlewares;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using System.Threading.RateLimiting;
 
@@ -93,6 +94,8 @@ namespace BeautyControl.API.Configurations
             app.UseStaticFiles();
 
             app.UseCors("TotalAccess");
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthConfiguration();
 
