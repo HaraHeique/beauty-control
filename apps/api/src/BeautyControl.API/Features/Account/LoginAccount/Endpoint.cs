@@ -35,10 +35,7 @@ namespace BeautyControl.API.Features.Account.LoginAccount
         {
             var result = await _mediator.Send(request, cancellationToken);
 
-            if (result.IsFailed)
-                return BadRequest(result.Errors.Select(e => e.Message));
-
-            return Ok(result.Value);
+            return this.Response(result);
         }
     }
 }
