@@ -45,7 +45,6 @@
   <ItemGroup>
     <Folder Include="Domain\" />
     <Folder Include="Middlewares\" />
-    <Folder Include="wwwroot\logs\" />
   </ItemGroup>
 
 </Project>
