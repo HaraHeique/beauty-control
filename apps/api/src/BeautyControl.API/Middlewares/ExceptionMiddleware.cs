@@ -4,25 +4,27 @@ namespace BeautyControl.API.Middlewares
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
-        private ILogger<ExceptionMiddleware> _logger;
+        private readonly ILogger<ExceptionMiddleware> _logger;
 
-        public ExceptionMiddleware(RequestDelegate next) => _next = next;
-
-        public async Task InvokeAsync(HttpContext httpContext, ILogger<ExceptionMiddleware> logger)
+        public ExceptionMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
         {
-            _logger = logger;
+            _next = next;
+            _logger = loggerFactory.CreateLogger<ExceptionMiddleware>();
+        }
 
+        public async Task InvokeAsync(HttpContext httpContext)
+        {
             try
             {
                 await _next(httpContext);
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(httpContext, ex);
+                await HandleGenericExceptionAsync(httpContext, ex);
             }
         }
 
-        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleGenericExceptionAsync(HttpContext context, Exception exception)
         {
             _logger.LogError(exception, "Um erro genérico ocorreu");
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
