@@ -2,7 +2,7 @@
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BeautyControl.API.Features.@Common.Endpoints
+namespace BeautyControl.API.Features._Common.Endpoints
 {
     public static class BaseEndpointExtensions
     {

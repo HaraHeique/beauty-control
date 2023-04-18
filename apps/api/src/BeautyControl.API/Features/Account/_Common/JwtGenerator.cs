@@ -7,7 +7,7 @@ using NetDevPack.Security.Jwt.Core.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace BeautyControl.API.Features.Account.@Common
+namespace BeautyControl.API.Features.Account._Common
 {
     public class JwtGenerator
     {

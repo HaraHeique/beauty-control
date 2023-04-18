@@ -1,6 +1,6 @@
-﻿using BeautyControl.API.Features.Account.Common;
-using BeautyControl.API.Features.Common.PipelineBehaviors;
-using BeautyControl.API.Features.Common.Users;
+﻿using BeautyControl.API.Features._Common.PipelineBehaviors;
+using BeautyControl.API.Features._Common.Users;
+using BeautyControl.API.Features.Account._Common;
 using FluentValidation;
 using MediatR;
 using System.Reflection;

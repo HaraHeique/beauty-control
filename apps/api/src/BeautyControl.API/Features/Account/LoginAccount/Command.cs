@@ -1,4 +1,4 @@
-﻿using BeautyControl.API.Features.Account.Common;
+﻿using BeautyControl.API.Features.Account._Common;
 using FluentResults;
 using FluentValidation;
 using MediatR;

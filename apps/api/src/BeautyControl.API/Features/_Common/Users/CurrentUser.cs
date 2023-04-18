@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace BeautyControl.API.Features.@Common.Users
+namespace BeautyControl.API.Features._Common.Users
 {
     public class CurrentUser
     {

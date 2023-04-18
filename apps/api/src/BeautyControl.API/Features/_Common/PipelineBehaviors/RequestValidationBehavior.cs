@@ -5,7 +5,7 @@ using FluentValidation.Results;
 using MediatR;
 
 #nullable disable
-namespace BeautyControl.API.Features.@Common.PipelineBehaviors
+namespace BeautyControl.API.Features._Common.PipelineBehaviors
 {
     public abstract class RequestValidationBehavior<TRequest>
     {

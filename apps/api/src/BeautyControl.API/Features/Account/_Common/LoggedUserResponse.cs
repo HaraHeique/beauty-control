@@ -1,5 +1,5 @@
 ﻿#nullable disable
-namespace BeautyControl.API.Features.Account.@Common
+namespace BeautyControl.API.Features.Account._Common
 {
     public record LoggedUserResponse
     {
