@@ -22,7 +22,7 @@ namespace BeautyControl.API.Features._Common.Users
             }
         }
         
-        public string? Email => IsAuthenticated() ? HttpContext?.User.GetUserEmail() : string.Empty;
+        public string? Email => IsAuthenticated() ? HttpContext!.User.GetUserEmail() : null;
 
         public bool IsAuthenticated()
         {

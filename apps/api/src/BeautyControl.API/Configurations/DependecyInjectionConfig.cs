@@ -15,6 +15,8 @@ namespace BeautyControl.API.Configurations
 
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+            RegisterUserDependencies(builder);
+
             RegisterFeaturesServices(builder);
         }
 
