@@ -44,6 +44,7 @@ namespace BeautyControl.API.Features._Common.PipelineBehaviors
             var requestName = request.GetType().GetDisplayName();
             var responseName = response?.GetType().GetDisplayName();
 
+            // Teria como melhorar essa cadeia de if's, mas as estratégias que pensei e perguntei a chatgpt são muito para pouco resultado
             if (response is null && userEmail is null)
                 _logger.LogInformation("Finalização do processamento da request {RequestName} sem response", requestName);
             else if (response is not null && userEmail is null)
