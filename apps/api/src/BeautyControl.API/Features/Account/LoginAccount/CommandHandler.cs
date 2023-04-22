@@ -26,6 +26,8 @@ namespace BeautyControl.API.Features.Account.LoginAccount
         {
             var user = await _userManager.FindByEmailAsync(request.Email!);
 
+            // TODO: Implementar lógica verificando se usuário está inativo
+
             if (user is null) return Result.Fail("Usuário e/ou senha inválidos");
 
             var signInResult = await _signInManager.PasswordSignInAsync(
