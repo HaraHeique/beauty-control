@@ -1,6 +1,6 @@
 ﻿namespace BeautyControl.API.Domain.Products
 {
-    public enum StatusStock
+    public enum StatusStock : byte
     {
         OutOfStock,
         RunningOutOfStock,

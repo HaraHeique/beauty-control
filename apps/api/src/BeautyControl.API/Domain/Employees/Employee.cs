@@ -9,10 +9,4 @@ namespace BeautyControl.API.Domain.Employees
         public Email Email { get; set; }
         public bool Active { get; set; }
     }
-
-    public enum Position
-    {
-        Salesman = 1,
-        Manager
-    }
 }

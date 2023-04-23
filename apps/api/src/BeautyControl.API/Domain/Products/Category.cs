@@ -1,6 +1,6 @@
 ﻿namespace BeautyControl.API.Domain.Products
 {
-    public enum Category
+    public enum Category : short
     {
         Face = 1,
         Skin,
