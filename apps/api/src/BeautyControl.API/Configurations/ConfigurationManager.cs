@@ -8,7 +8,7 @@
             appBuilder.Configuration
                 .SetBasePath(appBuilder.Environment.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{appBuilder.Environment.EnvironmentName}.json", true, true)
+                .AddJsonFile($"appsettings.{appBuilder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
                 .AddEnvironmentVariables();
 
             if (appBuilder.Environment.IsDevelopment())

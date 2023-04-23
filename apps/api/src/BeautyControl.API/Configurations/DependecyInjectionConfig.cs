@@ -1,8 +1,11 @@
 ﻿using BeautyControl.API.Features._Common.PipelineBehaviors;
 using BeautyControl.API.Features._Common.Users;
 using BeautyControl.API.Features.Account._Common;
+using BeautyControl.API.Infra.Data;
+using BeautyControl.API.Infra.Identity;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace BeautyControl.API.Configurations
@@ -11,6 +14,8 @@ namespace BeautyControl.API.Configurations
     {
         public static void RegisterDependencies(this WebApplicationBuilder builder)
         {
+            RegisterContextsDependencies(builder);
+
             RegisterMediatRDependencies(builder);
 
             builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
@@ -18,6 +23,19 @@ namespace BeautyControl.API.Configurations
             RegisterUserDependencies(builder);
 
             RegisterFeaturesServices(builder);
+        }
+
+        private static void RegisterContextsDependencies(WebApplicationBuilder builder)
+        {
+            builder.Services.AddDbContext<AppIdentityContext>(
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"),
+                sqlOptions => sqlOptions.MigrationsHistoryTable(AppIdentityContext.HistoryTableName, AppIdentityContext.Schema))
+            );
+            
+            builder.Services.AddDbContext<AppDataContext>(
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"),
+                sqlOptions => sqlOptions.MigrationsHistoryTable(AppDataContext.HistoryTableName, AppDataContext.Schema))
+            );
         }
 
         private static void RegisterMediatRDependencies(WebApplicationBuilder builder)

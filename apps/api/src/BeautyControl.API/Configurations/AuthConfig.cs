@@ -3,7 +3,6 @@ using BeautyControl.API.Infra.Identity.Models;
 using BeautyControl.API.Infra.Identity.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NetDevPack.Security.Jwt.Core.Interfaces;
@@ -29,10 +28,6 @@ namespace BeautyControl.API.Configurations
                 .UseArgon2<AppUser>();
 
             builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection(AuthSettings.Key));
-
-            builder.Services.AddDbContext<AppIdentityContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("Database"))
-            );
 
             AddJwtValidationConfig();
 

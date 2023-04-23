@@ -17,7 +17,8 @@ namespace BeautyControl.API.Infra.Identity.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
+                .HasDefaultSchema("Identity")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -49,7 +50,7 @@ namespace BeautyControl.API.Infra.Identity.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.ToTable("AspNetRoles", "Identity");
                 });
 
             modelBuilder.Entity("BeautyControl.API.Infra.Identity.Models.AppRoleClaim", b =>
@@ -73,7 +74,7 @@ namespace BeautyControl.API.Infra.Identity.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetRoleClaims", (string)null);
+                    b.ToTable("AspNetRoleClaims", "Identity");
                 });
 
             modelBuilder.Entity("BeautyControl.API.Infra.Identity.Models.AppUser", b =>
@@ -144,7 +145,7 @@ namespace BeautyControl.API.Infra.Identity.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("AspNetUsers", (string)null);
+                    b.ToTable("AspNetUsers", "Identity");
                 });
 
             modelBuilder.Entity("BeautyControl.API.Infra.Identity.Models.AppUserClaim", b =>
@@ -168,7 +169,7 @@ namespace BeautyControl.API.Infra.Identity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserClaims", (string)null);
+                    b.ToTable("AspNetUserClaims", "Identity");
                 });
 
             modelBuilder.Entity("BeautyControl.API.Infra.Identity.Models.AppUserLogin", b =>
@@ -189,7 +190,7 @@ namespace BeautyControl.API.Infra.Identity.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("AspNetUserLogins", (string)null);
+                    b.ToTable("AspNetUserLogins", "Identity");
                 });
 
             modelBuilder.Entity("BeautyControl.API.Infra.Identity.Models.AppUserRole", b =>
@@ -204,7 +205,7 @@ namespace BeautyControl.API.Infra.Identity.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("AspNetUserRoles", (string)null);
+                    b.ToTable("AspNetUserRoles", "Identity");
                 });
 
             modelBuilder.Entity("BeautyControl.API.Infra.Identity.Models.AppUserToken", b =>
@@ -223,7 +224,7 @@ namespace BeautyControl.API.Infra.Identity.Migrations
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("AspNetUserTokens", (string)null);
+                    b.ToTable("AspNetUserTokens", "Identity");
                 });
 
             modelBuilder.Entity("BeautyControl.API.Infra.Identity.Models.AppRoleClaim", b =>
