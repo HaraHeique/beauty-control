@@ -9,20 +9,28 @@ namespace BeautyControl.API.Features._Common.PipelineBehaviors
 {
     public abstract class RequestValidationBehavior<TRequest>
     {
-        protected readonly IValidator<TRequest> Validator;
+        protected readonly IEnumerable<IValidator<TRequest>> Validators;
         protected readonly ILogger<RequestValidationBehavior<TRequest>> Logger;
 
         protected RequestValidationBehavior(
-            IValidator<TRequest> validator,
+            IEnumerable<IValidator<TRequest>> validators,
             ILogger<RequestValidationBehavior<TRequest>> logger)
         {
-            Validator = validator;
+            Validators = validators;
             Logger = logger;
         }
 
-        protected async Task<ValidationResult> ValidateRequest(TRequest request, CancellationToken cancellationToken)
+        protected ValidationResult ValidateRequest(TRequest request)
         {
-            var validationResult = await Validator.ValidateAsync(request, cancellationToken);
+            if (!Validators.Any()) return new ValidationResult();
+
+            var validationResult = Validators
+                .Select(v => v.Validate(request))
+                .Aggregate((accumulator, current) =>
+                {
+                    accumulator.Errors.AddRange(current.Errors);
+                    return accumulator;
+                });
 
             if (validationResult.IsValid == false)
             {
@@ -49,13 +57,13 @@ namespace BeautyControl.API.Features._Common.PipelineBehaviors
             where TResponse : ResultBase
     {
         public FluentResultRequestValidationBehavior(
-            IValidator<TRequest> validator,
+            IEnumerable<IValidator<TRequest>> validators,
             ILogger<FluentResultRequestValidationBehavior<TRequest, TResponse>> logger)
-            : base(validator, logger) { }
+            : base(validators, logger) { }
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            var validationResult = await ValidateRequest(request, cancellationToken);
+            var validationResult = ValidateRequest(request);
 
             if (validationResult.IsValid)
                 return await next();
@@ -72,13 +80,13 @@ namespace BeautyControl.API.Features._Common.PipelineBehaviors
             where TResponse : ValidationResult
     {
         public FluentValidationRequestValidationBehavior(
-            IValidator<TRequest> validator,
+            IEnumerable<IValidator<TRequest>> validators,
             ILogger<FluentValidationRequestValidationBehavior<TRequest, TResponse>> logger)
-            : base(validator, logger) { }
+            : base(validators, logger) { }
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            var validationResult = await ValidateRequest(request, cancellationToken);
+            var validationResult = ValidateRequest(request);
 
             if (validationResult.IsValid)
                 return await next();
