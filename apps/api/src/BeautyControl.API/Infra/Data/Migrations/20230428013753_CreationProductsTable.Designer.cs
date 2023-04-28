@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeautyControl.API.Infra.Data.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20230423173852_CreationProductsTable")]
+    [Migration("20230428013753_CreationProductsTable")]
     partial class CreationProductsTable
     {
         /// <inheritdoc />
@@ -42,15 +42,14 @@ namespace BeautyControl.API.Infra.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("VARCHAR(2048)");
 
                     b.Property<string>("Image")
-                        .HasColumnType("varchar(100)")
-                        .HasColumnName("ImageUrl");
+                        .HasColumnType("VARCHAR(2048)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("varchar(100)");
+                        .HasColumnType("VARCHAR(128)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("INT");
@@ -58,8 +57,9 @@ namespace BeautyControl.API.Infra.Data.Migrations
                     b.Property<int>("RunningOutOfStock")
                         .HasColumnType("INT");
 
-                    b.Property<byte>("StatusStock")
-                        .HasColumnType("TINYINT");
+                    b.Property<byte>("Status")
+                        .HasColumnType("TINYINT")
+                        .HasColumnName("StatusStock");
 
                     b.HasKey("Id");
 

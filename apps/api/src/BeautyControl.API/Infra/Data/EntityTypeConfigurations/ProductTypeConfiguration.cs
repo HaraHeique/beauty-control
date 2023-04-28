@@ -25,7 +25,6 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
 
             builder.Property(p => p.Image)
                 .IsRequired(false)
-                .HasColumnName("ImageUrl")
                 .HasColumnType("VARCHAR(2048)");
 
             builder.Property(p => p.Quantity)
@@ -36,8 +35,9 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
                 .IsRequired()
                 .HasColumnType("INT");
 
-            builder.Property(p => p.StatusStock)
+            builder.Property(p => p.Status)
                 .IsRequired()
+                .HasColumnName("StatusStock")
                 .HasColumnType("TINYINT");
 
             builder.Property(p => p.Category)

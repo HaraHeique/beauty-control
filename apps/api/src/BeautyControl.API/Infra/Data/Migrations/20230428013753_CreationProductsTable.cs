@@ -21,9 +21,9 @@ namespace BeautyControl.API.Infra.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "varchar(100)", nullable: false),
-                    Description = table.Column<string>(type: "varchar(100)", nullable: false),
-                    ImageUrl = table.Column<string>(type: "varchar(100)", nullable: true),
+                    Name = table.Column<string>(type: "VARCHAR(128)", nullable: false),
+                    Description = table.Column<string>(type: "VARCHAR(2048)", nullable: false),
+                    Image = table.Column<string>(type: "VARCHAR(2048)", nullable: true),
                     Quantity = table.Column<int>(type: "INT", nullable: false),
                     RunningOutOfStock = table.Column<int>(type: "INT", nullable: false),
                     StatusStock = table.Column<byte>(type: "TINYINT", nullable: false),

@@ -16,11 +16,11 @@ namespace BeautyControl.API.Infra.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema(Schema);
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
             SetDefaultModelColumnsType(modelBuilder);
             SetDefaultBehaviorForeignKeys(modelBuilder);
+
+            modelBuilder.HasDefaultSchema(Schema);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
 
@@ -31,7 +31,7 @@ namespace BeautyControl.API.Infra.Data
                 IEnumerable<IMutableProperty> stringColumnsType = GetAllPropertiesByType(modelBuilder, typeof(string));
 
                 foreach (var property in stringColumnsType)
-                    property.SetColumnType("varchar(100)");
+                    property.SetColumnType("varchar(128)");
 
                 IEnumerable<IMutableProperty> decimalColumnsType = GetAllPropertiesByType(modelBuilder, typeof(decimal));
 
