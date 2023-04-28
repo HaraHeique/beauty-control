@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infra\Data\EntityTypeConfigurations\" />
     <Folder Include="Infra\Data\Migrations\" />
     <Folder Include="Infra\Identity\Migrations\" />
   </ItemGroup>

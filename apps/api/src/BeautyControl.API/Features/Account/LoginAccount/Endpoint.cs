@@ -27,7 +27,7 @@ namespace BeautyControl.API.Features.Account.LoginAccount
             Summary = "Login do usuário",
             Description = "Realizar o login de usuário a partir de Email e Senha",
             OperationId = "Account.LoginAccount",
-            Tags = new[] { "Account" }
+            Tags = new[] { SwaggerOperations.Tags.Account }
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoggedUserResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]

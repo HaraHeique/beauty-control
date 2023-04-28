@@ -24,7 +24,7 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
             Summary = "Criar um novo usuário",
             Description = "Criar um novo usuário na base de dados",
             OperationId = "Account.CreateNewAccount",
-            Tags = new[] { "Account" }
+            Tags = new[] { SwaggerOperations.Tags.Account }
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoggedUserResponse))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]

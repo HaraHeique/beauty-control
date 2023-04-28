@@ -2,6 +2,9 @@
 {
     public static class Routes
     {
-        public const string AccountUri = "api/v{version:apiVersion}/account";
+        private const string baseUri = "api/v{version:apiVersion}";
+
+        public const string AccountUri = $"{baseUri}/account";
+        public const string ProductsUri = $"{baseUri}/products";
     }
 }

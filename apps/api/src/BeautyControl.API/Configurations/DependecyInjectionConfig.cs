@@ -1,6 +1,7 @@
 ﻿using BeautyControl.API.Features._Common.PipelineBehaviors;
 using BeautyControl.API.Features._Common.Users;
 using BeautyControl.API.Features.Account._Common;
+using BeautyControl.API.Features.Products._Common;
 using BeautyControl.API.Infra.Data;
 using BeautyControl.API.Infra.Identity;
 using FluentValidation;
@@ -48,6 +49,8 @@ namespace BeautyControl.API.Configurations
 
                 config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(FluentResultRequestValidationBehavior<,>));
                 config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(FluentValidationRequestValidationBehavior<,>));
+
+                config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ImageUploadBehavior<,>));
             });
         }
 
