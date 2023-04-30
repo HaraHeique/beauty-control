@@ -1,7 +1,10 @@
-﻿using Serilog;
+﻿using BeautyControl.API.Infra.Logging;
+using FluentResults;
+using Serilog;
 
 namespace BeautyControl.API.Configurations
 {
+    // Configuração via código: https://henriquemauri.net/coletando-logs-com-o-serilog-no-net-6/
     public static class LoggingConfig
     {
         public static void AddLogConfiguration(this WebApplicationBuilder builder)
@@ -13,7 +16,10 @@ namespace BeautyControl.API.Configurations
             builder.Logging.ClearProviders();
             builder.Logging.AddSerilog(logger);
 
-            // Configuração via código: https://henriquemauri.net/coletando-logs-com-o-serilog-no-net-6/
+            Result.Setup(config =>
+            {
+                config.Logger = new CustomFluentValidationLogger(logger);
+            });
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using BeautyControl.API.Extensions;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
 namespace BeautyControl.API.Configurations

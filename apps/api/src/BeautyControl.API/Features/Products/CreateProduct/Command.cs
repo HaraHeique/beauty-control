@@ -3,6 +3,8 @@ using BeautyControl.API.Features.Products._Common;
 using FluentResults;
 using FluentValidation;
 using MediatR;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel;
 
 namespace BeautyControl.API.Features.Products.CreateProduct
@@ -10,13 +12,25 @@ namespace BeautyControl.API.Features.Products.CreateProduct
     [DisplayName("ProductCreateRequest")]
     public record Command : IRequest<Result<int>>, IImageUploadRequest
     {
-        public int? Id { get; init; }
         public string? Name { get; init; }
         public string? Description { get; init; }
         public int RunningOutOfStock { get; init; }
         public Category Category { get; init; }
-        public string? Image { get; set; }
         public IFormFile? ImageUpload { get; init; }
+
+        #region Campos de suporte e não considerados ao ser feita a request
+
+        const string swaggerDescriptions = "Este campo deve ser ignorado ao enviar o formulário para o servidor. Preencher ele não fará nenhuma diferença ou impacto.";
+
+        [JsonIgnore]
+        [SwaggerSchema(Description = swaggerDescriptions, ReadOnly = true)]
+        public int? Id { get; init; }
+
+        [JsonIgnore]
+        [SwaggerSchema(Description = swaggerDescriptions, ReadOnly = true)]
+        public string? Image { get; set; }
+
+        #endregion
     }
 
     public class CommandValidation : AbstractValidator<Command>

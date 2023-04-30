@@ -1,15 +1,13 @@
 ﻿using Ardalis.ApiEndpoints;
 using BeautyControl.API.Features._Common.Endpoints;
-using BeautyControl.API.Infra.Identity.Models;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 
 namespace BeautyControl.API.Features.Products.CreateProduct
 {
-    [Authorize(Roles = UserRoles.AdminDisplayName)]
+    //[Authorize(Roles = UserRoles.AdminDisplayName)]
     [ApiVersion("1")]
     [Route(Routes.ProductsUri)]
     public class Endpoint : EndpointBaseAsync
@@ -34,7 +32,7 @@ namespace BeautyControl.API.Features.Products.CreateProduct
         {
             var result = await _mediator.Send(request, cancellationToken);
 
-            return this.Response(result, HttpStatusCode.Created);
+            return this.Response(result, result.IsSuccess ? HttpStatusCode.Created : HttpStatusCode.BadRequest);
         }
     }
 }

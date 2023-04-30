@@ -262,5 +262,6 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 
-# Logs in wwwroot
+# Logs e images in wwwroot
 src/BeautyControl.API/wwwroot/logs/*
+src/BeautyControl.API/wwwroot/images/*

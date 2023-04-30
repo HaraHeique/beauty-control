@@ -32,6 +32,7 @@ namespace BeautyControl.API.Features._Common.PipelineBehaviors
                     return accumulator;
                 });
 
+            // Este trecho aqui do código loggando o erro não é necessário porque meu LoggingPipelineBehavior já faz o log necessário. Mas foi legal para aprender
             if (validationResult.IsValid == false)
             {
                 var requestName = typeof(TRequest).GetDisplayName();

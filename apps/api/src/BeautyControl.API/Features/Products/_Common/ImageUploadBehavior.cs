@@ -40,14 +40,17 @@ namespace BeautyControl.API.Features.Products._Common
 
         private async Task<Result> UploadImage(TRequest request, CancellationToken cancellationToken)
         {
+            // TODO: implementar a extensão e feature de logs que o FluentResult fornece na própria Lib
             if (request.ImageUpload is null || request.ImageUpload.Length == 0)
-                return Result.Fail("É obrigatório fornecer uma imagem para este produto.").LogIfFailed();
+                return Result.Fail("É obrigatório fornecer uma imagem para este produto.")
+                    .LogIfFailed<ImageUploadBehavior<TRequest, TResponse>>();
 
             var imageName = $"{Guid.NewGuid()}_{request.ImageUpload.FileName}";
             var filePath = Path.Combine(_env.WebRootPath, _wwwrootDirectory, imageName);
 
             if (File.Exists(filePath))
-                return Result.Fail($"Já existe uma imagem com o nome {imageName}.").LogIfFailed();
+                return Result.Fail($"Já existe uma imagem com o nome {imageName}.")
+                    .LogIfFailed<ImageUploadBehavior<TRequest, TResponse>>();
 
             using var stream = new FileStream(filePath, FileMode.Create);
             await request.ImageUpload.CopyToAsync(stream, cancellationToken);
@@ -82,12 +85,5 @@ namespace BeautyControl.API.Features.Products._Common
                 
             File.Delete(path);
         }
-    }
-
-    public interface IImageUploadRequest
-    {
-        public int? Id { get; init; }
-        public string? Image { get; set; }
-        public IFormFile? ImageUpload { get; init; }
     }
 }
