@@ -16,8 +16,10 @@ namespace BeautyControl.API.Features.Products.CreateProduct
 
         public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken)
         {
+            var image = request.ImageUpload is not null ? new Image(request.Image!, request.ImageUrlUpload!) : null;
+
             var product = new Product(
-                request.Name, request.Description, request.Image, 
+                request.Name, request.Description, image, 
                 request.RunningOutOfStock, request.Category
             );
 

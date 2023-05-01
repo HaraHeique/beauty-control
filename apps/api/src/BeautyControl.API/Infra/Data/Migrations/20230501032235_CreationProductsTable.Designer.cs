@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeautyControl.API.Infra.Data.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20230428013753_CreationProductsTable")]
+    [Migration("20230501032235_CreationProductsTable")]
     partial class CreationProductsTable
     {
         /// <inheritdoc />
@@ -44,9 +44,6 @@ namespace BeautyControl.API.Infra.Data.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(2048)");
 
-                    b.Property<string>("Image")
-                        .HasColumnType("VARCHAR(2048)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(128)");
@@ -64,6 +61,32 @@ namespace BeautyControl.API.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products", "Business");
+                });
+
+            modelBuilder.Entity("BeautyControl.API.Domain.Products.Product", b =>
+                {
+                    b.OwnsOne("BeautyControl.API.Domain.Products.Image", "Image", b1 =>
+                        {
+                            b1.Property<int>("ProductId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Name")
+                                .HasColumnType("VARCHAR(256)")
+                                .HasColumnName("ImageName");
+
+                            b1.Property<string>("Url")
+                                .HasColumnType("VARCHAR(2048)")
+                                .HasColumnName("ImageUrl");
+
+                            b1.HasKey("ProductId");
+
+                            b1.ToTable("Products", "Business");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ProductId");
+                        });
+
+                    b.Navigation("Image");
                 });
 #pragma warning restore 612, 618
         }

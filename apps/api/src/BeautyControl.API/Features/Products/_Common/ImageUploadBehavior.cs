@@ -1,4 +1,5 @@
-﻿using BeautyControl.API.Infra.Data;
+﻿using BeautyControl.API.Features._Common.Users;
+using BeautyControl.API.Infra.Data;
 using FluentResults;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -14,15 +15,18 @@ namespace BeautyControl.API.Features.Products._Common
         private readonly IWebHostEnvironment _env;
         private readonly AppDataContext _context;
         private readonly ILogger<ImageUploadBehavior<TRequest, TResponse>> _logger;
+        private readonly CurrentUser _currentUser;
 
         public ImageUploadBehavior(
-            IWebHostEnvironment env, 
-            AppDataContext context, 
-            ILogger<ImageUploadBehavior<TRequest, TResponse>> logger)
+            IWebHostEnvironment env,
+            AppDataContext context,
+            ILogger<ImageUploadBehavior<TRequest, TResponse>> logger,
+            CurrentUser currentUser)
         {
             _env = env;
             _context = context;
             _logger = logger;
+            _currentUser = currentUser;
         }
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
@@ -40,7 +44,6 @@ namespace BeautyControl.API.Features.Products._Common
 
         private async Task<Result> UploadImage(TRequest request, CancellationToken cancellationToken)
         {
-            // TODO: implementar a extensão e feature de logs que o FluentResult fornece na própria Lib
             if (request.ImageUpload is null || request.ImageUpload.Length == 0)
                 return Result.Fail("É obrigatório fornecer uma imagem para este produto.")
                     .LogIfFailed<ImageUploadBehavior<TRequest, TResponse>>();
@@ -57,6 +60,8 @@ namespace BeautyControl.API.Features.Products._Common
 
             _logger.LogInformation("Upload da imagem {imageName} ({filePath}) realizada com sucesso!", imageName, filePath);
 
+            var host = $"{_currentUser.HttpContext?.Request.Scheme}://{_currentUser.HttpContext?.Request.Host}";
+            request.ImageUrlUpload = $"{host}/{_wwwrootDirectory}/{imageName}";
             request.Image = imageName;
 
             return Result.Ok();
@@ -64,19 +69,19 @@ namespace BeautyControl.API.Features.Products._Common
 
         private async Task DeleteImage(TRequest request)
         {
-            var imageName = await _context.Products
+            var image = await _context.Products
                 .AsNoTracking()
                 .Where(p => p.Id == request.Id!.Value)
                 .Select(p => p.Image)
                 .FirstOrDefaultAsync();
 
-            if (string.IsNullOrEmpty(imageName))
+            if (image is null)
             {
                 _logger.LogWarning("Não foi encontrada a imagem para o produto ID {id}", request.Id);
                 return;
             }
 
-            string path = Path.Combine(_env.WebRootPath, _wwwrootDirectory, imageName);
+            string path = Path.Combine(_env.WebRootPath, _wwwrootDirectory, image.Name);
 
             if (!File.Exists(path))
             {

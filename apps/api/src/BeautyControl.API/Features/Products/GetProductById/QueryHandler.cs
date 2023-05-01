@@ -19,7 +19,7 @@ namespace BeautyControl.API.Features.Products.GetProductById
                 .AsNoTracking()
                 .Where(p => p.Id == request.Id)
                 .Select(p =>
-                    new ProductResponse(p.Id, p.Name, p.Description, p.Image, p.Quantity, p.RunningOutOfStock, p.Category, p.Status)
+                    new ProductResponse(p.Id, p.Name, p.Description, p.Image != null ? p.Image!.Url : null, p.Quantity, p.RunningOutOfStock, p.Category, p.Status)
                 ).FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (queryResponse is null)

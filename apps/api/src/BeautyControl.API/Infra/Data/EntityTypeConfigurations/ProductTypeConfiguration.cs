@@ -23,9 +23,18 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
                 .IsRequired()
                 .HasColumnType("VARCHAR(2048)");
 
-            builder.Property(p => p.Image)
-                .IsRequired(false)
-                .HasColumnType("VARCHAR(2048)");
+            builder.OwnsOne(p => p.Image, ownerBuilder =>
+            {
+                ownerBuilder.Property(i => i.Url)
+                    .IsRequired(false)
+                    .HasColumnName("ImageUrl")
+                    .HasColumnType("VARCHAR(2048)");
+
+                ownerBuilder.Property(i => i.Name)
+                    .IsRequired(false)
+                    .HasColumnName("ImageName")
+                    .HasColumnType("VARCHAR(256)");
+            });
 
             builder.Property(p => p.Quantity)
                 .IsRequired()

@@ -30,6 +30,10 @@ namespace BeautyControl.API.Features.Products.CreateProduct
         [SwaggerSchema(Description = swaggerDescriptions, ReadOnly = true)]
         public string? Image { get; set; }
 
+        [JsonIgnore]
+        [SwaggerSchema(Description = swaggerDescriptions, ReadOnly = true)]
+        public string? ImageUrlUpload { get; set; }
+
         #endregion
     }
 

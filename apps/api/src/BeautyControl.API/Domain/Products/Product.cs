@@ -7,14 +7,16 @@ namespace BeautyControl.API.Domain.Products
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public string? Image { get; set; }
+        public Image? Image { get; set; }
         public int Quantity { get; private set; }
         public int RunningOutOfStock { get; set; }
         public StatusStock Status { get; private set; }
         public Category Category { get; set; }
         public DateTime CreationDate { get; private set; }
 
-        public Product(string name, string description, string? image, int runningOutOfStock, Category category)
+        private Product() { }
+
+        public Product(string name, string description, Image image, int runningOutOfStock, Category category)
         {
             Name = name;
             Description = description;

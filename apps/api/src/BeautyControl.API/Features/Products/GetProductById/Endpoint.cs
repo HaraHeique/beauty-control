@@ -35,8 +35,6 @@ namespace BeautyControl.API.Features.Products.GetProductById
 
             var result = await _mediator.Send(query, cancellationToken);
 
-            // TODO: modificar o response aqui para colocar a URL do toda da imagem do produto caso tenha
-
             return this.Response(result);
         }
     }
