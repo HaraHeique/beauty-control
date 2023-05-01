@@ -13,7 +13,7 @@ namespace BeautyControl.API.Features._Common.Endpoints
         {
             if (result.IsSuccess) return endpoint.Ok(result.Value);
 
-            return GetErrorResponse(endpoint, result);
+            return ErrorResponse(endpoint, result);
         }
         
         public static ActionResult Response<TResponse>(this EndpointBase endpoint, Result<TResponse> result, HttpStatusCode statusCode)
@@ -31,10 +31,10 @@ namespace BeautyControl.API.Features._Common.Endpoints
         {
             if (result.IsSuccess) return endpoint.NoContent();
 
-            return GetErrorResponse(endpoint, result);
+            return ErrorResponse(endpoint, result);
         }
 
-        private static ActionResult GetErrorResponse(this EndpointBase endpoint, ResultBase result)
+        private static ActionResult ErrorResponse(this EndpointBase endpoint, ResultBase result)
         {
             if (result.HasError(error => error is NotFoundError))
                 return endpoint.NotFound();
