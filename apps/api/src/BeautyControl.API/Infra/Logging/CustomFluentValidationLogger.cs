@@ -1,4 +1,5 @@
-﻿using FluentResults;
+﻿using BeautyControl.API.Extensions;
+using FluentResults;
 using Serilog.Core;
 using Serilog.Events;
 
@@ -49,7 +50,7 @@ namespace BeautyControl.API.Infra.Logging
                 "Payload: {@Content}"
             );
 
-            var reasons = result.Reasons.Select(reason => reason.Message);
+            var reasons = result.GetReasonsMessages();
             var sucesssToken = result.IsSuccess ? "Sim" : "Não";
 
             return (message, reasons, sucesssToken);

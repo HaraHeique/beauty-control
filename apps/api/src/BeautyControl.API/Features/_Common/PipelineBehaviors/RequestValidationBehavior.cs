@@ -69,7 +69,7 @@ namespace BeautyControl.API.Features._Common.PipelineBehaviors
             if (validationResult.IsValid)
                 return await next();
 
-            var errors = validationResult.Errors.Select(vf => vf.ErrorMessage);
+            var errors = validationResult.GetErrorsMessages();
 
             return Result.Fail(errors) as dynamic;
         }
