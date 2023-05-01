@@ -1,4 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
+using BeautyControl.API.Domain._Common.Errors;
 using BeautyControl.API.Extensions;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +13,7 @@ namespace BeautyControl.API.Features._Common.Endpoints
         {
             if (result.IsSuccess) return endpoint.Ok(result.Value);
 
-            return endpoint.BadRequest(result.GetErrorsMessages());
+            return GetErrorResponse(endpoint, result);
         }
         
         public static ActionResult Response<TResponse>(this EndpointBase endpoint, Result<TResponse> result, HttpStatusCode statusCode)
@@ -29,6 +30,14 @@ namespace BeautyControl.API.Features._Common.Endpoints
         public static ActionResult Response(this EndpointBase endpoint, Result result)
         {
             if (result.IsSuccess) return endpoint.NoContent();
+
+            return GetErrorResponse(endpoint, result);
+        }
+
+        private static ActionResult GetErrorResponse(this EndpointBase endpoint, ResultBase result)
+        {
+            if (result.HasError(error => error is NotFoundError))
+                return endpoint.NotFound();
 
             return endpoint.BadRequest(result.GetErrorsMessages());
         }
