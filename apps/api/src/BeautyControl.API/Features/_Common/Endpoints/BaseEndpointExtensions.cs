@@ -36,7 +36,7 @@ namespace BeautyControl.API.Features._Common.Endpoints
 
         private static ActionResult ErrorResponse(this EndpointBase endpoint, ResultBase result)
         {
-            if (result.HasError(error => error is NotFoundError))
+            if (result.HasError<NotFoundError>())
                 return endpoint.NotFound();
 
             return endpoint.BadRequest(result.GetErrorsMessages());

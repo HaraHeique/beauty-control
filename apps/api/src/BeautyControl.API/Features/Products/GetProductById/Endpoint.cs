@@ -9,7 +9,7 @@ using MediatR;
 
 namespace BeautyControl.API.Features.Products.GetProductById
 {
-    //[Authorize]
+    [Authorize]
     [ApiVersion("1")]
     [Route(Routes.ProductsUri)]
     public class Endpoint : EndpointBaseAsync
