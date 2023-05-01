@@ -1,6 +1,9 @@
 ﻿using Ardalis.ApiEndpoints;
 using BeautyControl.API.Features._Common.Endpoints;
+using BeautyControl.API.Features.Account._Common;
+using BeautyControl.API.Infra.Identity.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;

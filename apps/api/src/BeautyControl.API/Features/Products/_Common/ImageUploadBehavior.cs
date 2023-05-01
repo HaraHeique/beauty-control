@@ -65,6 +65,7 @@ namespace BeautyControl.API.Features.Products._Common
         private async Task DeleteImage(TRequest request)
         {
             var imageName = await _context.Products
+                .AsNoTracking()
                 .Where(p => p.Id == request.Id!.Value)
                 .Select(p => p.Image)
                 .FirstOrDefaultAsync();
