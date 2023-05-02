@@ -6,20 +6,18 @@ using Newtonsoft.Json;
 using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel;
 
-namespace BeautyControl.API.Features.Products.CreateProduct
+namespace BeautyControl.API.Features.Products.UpdateProduct
 {
-    [DisplayName("ProductCreateRequest")]
-    public record Command : BasicInfoProductCommand, IRequest<Result<int>>, IImageUploadRequest
+    [DisplayName("ProductUpdateRequest")]
+    public record Command : BasicInfoProductCommand, IRequest<Result>, IImageUploadRequest
     {
+        [SwaggerSchema(Nullable = false)]
+        public int? Id { get; init; }
         public IFormFile? ImageUpload { get; init; }
 
         #region Campos de suporte e não considerados ao ser feita a request
 
         const string swaggerDescriptions = "Este campo deve ser ignorado ao enviar o formulário para o servidor. Preencher ele não fará nenhuma diferença ou impacto.";
-
-        [JsonIgnore]
-        [SwaggerSchema(Description = swaggerDescriptions, ReadOnly = true)]
-        public int? Id { get; init; }
 
         [JsonIgnore]
         [SwaggerSchema(Description = swaggerDescriptions, ReadOnly = true)]
@@ -36,6 +34,10 @@ namespace BeautyControl.API.Features.Products.CreateProduct
     {
         public CommandValidation()
         {
+            RuleFor(q => q.Id)
+                .NotEmpty().WithMessage("O campo {PropertyName} é obrigatório.")
+                .GreaterThan(0).WithMessage("O {PropertyName} não pode ser zero ou negativo.");
+
             Include(new BasicInfoProductCommandValidation());
         }
     }

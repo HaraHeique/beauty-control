@@ -19,8 +19,11 @@ namespace BeautyControl.API.Domain.Products
             Url = urlAccess;
         }
 
-        public static bool Validate(string imageName, string urlAccess)
+        public static bool Validate(string? imageName, string? urlAccess)
         {
+            if (string.IsNullOrEmpty(imageName) || string.IsNullOrEmpty(urlAccess))
+                return false;
+
             var isValidName = Regex.IsMatch(imageName, @"^[a-zA-Z0-9-_()\s]+\.(png|jpg|gif)$");
             var isValidUrl = Regex.IsMatch(urlAccess, @"^(https?|ftp):\/\/[^\s/$.?#].*$");
 
