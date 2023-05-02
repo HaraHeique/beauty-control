@@ -18,9 +18,18 @@ namespace BeautyControl.API.Features.Products.GetProductById
             var queryResponse = await _context.Products
                 .AsNoTracking()
                 .Where(p => p.Id == request.Id)
-                .Select(p =>
-                    new ProductResponse(p.Id, p.Name, p.Description, p.Image != null ? p.Image!.Url : null, p.Quantity, p.RunningOutOfStock, p.Category, p.Status)
-                ).FirstOrDefaultAsync(cancellationToken: cancellationToken);
+                .Select(p => new ProductResponse
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    ImageUrl = p.Image != null ? p.Image.Url : null,
+                    Quantity = p.Quantity,
+                    RunningOutOfStock = p.RunningOutOfStock,
+                    Category = p.Category,
+                    StatusStock = p.Status
+                })
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
             if (queryResponse is null)
                 return Result.Fail(new NotFoundError());

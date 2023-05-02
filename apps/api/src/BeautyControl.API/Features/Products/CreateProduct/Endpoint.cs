@@ -11,6 +11,7 @@ using System.Net;
 namespace BeautyControl.API.Features.Products.CreateProduct
 {
     //[Authorize(Roles = UserRoles.AdminDisplayName)]
+    [Authorize]
     [ApiVersion("1")]
     [Route(Routes.ProductsUri)]
     public class Endpoint : EndpointBaseAsync
