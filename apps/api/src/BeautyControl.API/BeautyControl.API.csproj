@@ -52,7 +52,6 @@
     <Folder Include="Infra\Data\EntityTypeConfigurations\" />
     <Folder Include="Infra\Data\Migrations\" />
     <Folder Include="Infra\Identity\Migrations\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
