@@ -34,6 +34,14 @@ namespace BeautyControl.API.Features._Common.Endpoints
             return ErrorResponse(endpoint, result);
         }
 
+        public static ActionResult ErrorResponse(this EndpointBase endpoint, params string[] errors)
+        {
+            if (errors == null || errors.Any() == false)
+                throw new ArgumentException("A chamada deste método ErrorResponse precisa conter ao menos uma mensagem de erro.");
+
+            return endpoint.BadRequest(errors);
+        }
+
         private static ActionResult ErrorResponse(this EndpointBase endpoint, ResultBase result)
         {
             if (result.HasError<NotFoundError>())

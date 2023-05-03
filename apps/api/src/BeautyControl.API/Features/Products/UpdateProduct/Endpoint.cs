@@ -8,19 +8,25 @@ using static BeautyControl.API.Features._Common.Endpoints.SwaggerOperations;
 
 namespace BeautyControl.API.Features.Products.UpdateProduct
 {
+    public record Request
+    {
+        [FromRoute(Name = "id")] public int Id { get; init; }
+        [FromForm] public Command? FormData { get; init; }
+    }
+
     //[Authorize(Roles = UserRoles.AdminDisplayName)]
     [Authorize]
     [ApiVersion("1")]
     [Route(Routes.ProductsUri)]
     public class Endpoint : EndpointBaseAsync
-        .WithRequest<Command>
+        .WithRequest<Request>
         .WithActionResult
     {
         private readonly IMediator _mediator;
 
         public Endpoint(IMediator mediator) => _mediator = mediator;
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         [SwaggerOperation(
             Summary = "Atualizar produto existente",
             Description = "Atualizar um produto passando as informações básicas e valor de configuração chamado RunningOutOfStock (indicando a partir de qual valor que determina que está saindo fora do estoque). " +
@@ -31,9 +37,15 @@ namespace BeautyControl.API.Features.Products.UpdateProduct
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async override Task<ActionResult> HandleAsync([FromForm] Command request, CancellationToken cancellationToken = default)
+        public async override Task<ActionResult> HandleAsync([FromRoute] Request request, CancellationToken cancellationToken = default)
         {
-            var result = await _mediator.Send(request, cancellationToken);
+            int id = request.Id; 
+            var command = request.FormData;
+
+            if (id != command?.Id) 
+                return this.ErrorResponse("ID passado na rota é diferente do informado no formulário fornecido.");
+
+            var result = await _mediator.Send(command, cancellationToken);
 
             return this.Response(result);
         }
