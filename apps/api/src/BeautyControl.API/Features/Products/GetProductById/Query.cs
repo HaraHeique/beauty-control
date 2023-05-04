@@ -2,11 +2,9 @@
 using FluentResults;
 using FluentValidation;
 using MediatR;
-using System.ComponentModel;
 
 namespace BeautyControl.API.Features.Products.GetProductById
 {
-    [DisplayName("GetProductByIdRequest")]
     public record Query(int Id) : IRequest<Result<ProductResponse?>>;
 
     public class QueryValidation : AbstractValidator<Query>
