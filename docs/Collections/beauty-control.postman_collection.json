@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "7cdff3da-53d3-41ab-a189-5d0e2b1bd7b8",
+		"name": "beauty-control",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14038161"
+	},
+	"item": [
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "/",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "Produto 4",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "teste",
+									"type": "text"
+								},
+								{
+									"key": "RunningOutOfStock",
+									"value": "40",
+									"type": "text"
+								},
+								{
+									"key": "Category",
+									"value": "4",
+									"description": "Face = 1, Skin, Hair, Nail",
+									"type": "text"
+								},
+								{
+									"key": "ImageUpload",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/{id}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "FormData.Id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "FormData.Name",
+									"value": "Semana das crianças 2",
+									"type": "text"
+								},
+								{
+									"key": "FormData.Description",
+									"value": "Muitas crianças 3",
+									"type": "text"
+								},
+								{
+									"key": "FormData.RunningOutOfStock",
+									"value": "30",
+									"type": "text"
+								},
+								{
+									"key": "FormData.Category",
+									"value": "4",
+									"description": "Face = 1, Skin, Hair, Nail",
+									"type": "text"
+								},
+								{
+									"key": "FormData.ImageUpload",
+									"type": "file",
+									"src": "/D:/Projetos/VITRINE/Download/POC - Qualidade imagem/TESTE_BANCO/IMG-4-P.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/4",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"products",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/{id}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/1",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"products"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "/new-account",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"console.log(response);\r",
+									"pm.collectionVariables.set(\"jwt-token\", response.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"HaraHeique\",\r\n  \"email\": \"heik.teste@gmail.com\",\r\n  \"password\": \"Teste@123\",\r\n  \"passwordConfirmation\": \"Teste@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/new-account",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"new-account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();\r",
+									"console.log(response);\r",
+									"pm.collectionVariables.set(\"jwt-token\", response.accessToken);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"heik.teste@gmail.com\",\r\n  \"password\": \"Teste@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/login",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api-prefix",
+			"value": "api",
+			"type": "string"
+		},
+		{
+			"key": "host-local",
+			"value": "http://localhost:5002",
+			"type": "string"
+		},
+		{
+			"key": "host-local-ssl",
+			"value": "https://localhost:5001",
+			"type": "string"
+		},
+		{
+			"key": "bearer-schema",
+			"value": "Bearer",
+			"type": "string"
+		},
+		{
+			"key": "jwt-token",
+			"value": "eyJhbGciOiJQUzI1NiIsImtpZCI6Imx5UGNpVXFFZE9DcGtuT0JVSkQ4TnciLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiIxIiwiZW1haWwiOiJoZWlrLnRlc3RlQGdtYWlsLmNvbSIsImp0aSI6ImZkMmEzOTUwLTk5YjctNGIzMS04MDQ3LWFmNDA5NTYzYjA3NCIsIm5iZiI6MTY4Mjk2MTc1MiwiaWF0IjoxNjgyOTYxNzUyLCJhdWQiOlsiaHR0cHM6Ly9sb2NhbGhvc3QiLCJodHRwOi8vbG9jYWxob3N0Il0sImV4cCI6MTY4Mjk2ODk1MiwiaXNzIjoiQmVhdXR5Q29udHJvbC5BUEkifQ.B5JIl9WzVAvO4zI9IK_2G2YWf2GLxNJfrDfvigUJJSSn0GGxhkUR90sMpTXAn_5aSBOL4Lo6eo5ZPhjMOnC-akHh99n0BmnO9m8NrCiPCSMn2AMHy-CCkMn_A1KXRVrgbDlE_tG9y4Qbo0KQEgron8MJkTMEnAygWR1WIODMVkKR0IlJmE1RzwDEN_fihZFjtTARB3lAXcVZc4Mr9OW90SM8Fl-1cZZJfoJP7TzLNY34Iy5Ivh-hQz0wNIgWjPPPyQeyreNQ8czVjvz3XSE3AIlnf6hGpOZopl11BeejRx7F1T8QwzTW6Gk49fkiAn6TROvFUSdlJys55YjJyNIzByyYxYYDBoqNF8BoVB3eadYtFj-5Le0hdLPZLE6IXsKPyOqx8pqfPkLvBSK2M0RpNVilQxwrcUXpU1Lrhp1gHT0i-rk9RubLV5zLqjG2k4CAp6NO6A7dtEJ9-DQbrpvSez3PWYmQNuFtCg--00D1zCgBH_lpm0WMuPt3BkoyhwJB",
+			"type": "string"
+		}
+	]
+}
