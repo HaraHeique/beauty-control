@@ -18,7 +18,7 @@ namespace BeautyControl.API.Features.Products.UpdateProduct
 
             if (productDb is null) return Result.Fail(new NotFoundError());
 
-            Image? image = GetNewImage(request);
+            Image? image = GetNewImage(request, productDb);
 
             productDb!.UpdateBasicInfo(
                 request.Name, request.Description, image,
@@ -31,8 +31,10 @@ namespace BeautyControl.API.Features.Products.UpdateProduct
             return Result.Ok();
         }
 
-        private static Image? GetNewImage(Command request)
+        private static Image? GetNewImage(Command request, Product product)
         {
+            if (request.ImageUpload is null) return product.Image;
+
             Image? image = null;
 
             if (Image.Validate(request.Image, request.ImageUrlUpload))

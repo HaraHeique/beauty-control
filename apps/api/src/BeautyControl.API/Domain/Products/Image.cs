@@ -2,6 +2,7 @@
 using BeautyControl.API.Domain._Common.Exceptions;
 using System.Text.RegularExpressions;
 
+#pragma warning disable CS8618
 namespace BeautyControl.API.Domain.Products
 {
     public record class Image : IValueObject

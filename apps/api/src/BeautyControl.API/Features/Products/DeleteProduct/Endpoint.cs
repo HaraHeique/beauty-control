@@ -20,7 +20,7 @@ namespace BeautyControl.API.Features.Products.DeleteProduct
 
         public Endpoint(IMediator mediator) => _mediator = mediator;
 
-        [HttpPost]
+        [HttpDelete("{id:int}")]
         [SwaggerOperation(
             Summary = "Remover um produto.",
             Description = "Remove um produto existente na base de dados, assim como sua imagem também.",

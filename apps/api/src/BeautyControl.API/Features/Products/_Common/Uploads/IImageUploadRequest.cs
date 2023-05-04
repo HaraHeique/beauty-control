@@ -1,4 +1,4 @@
-﻿namespace BeautyControl.API.Features.Products._Common
+﻿namespace BeautyControl.API.Features.Products._Common.Uploads
 {
     public interface IImageUploadRequest
     {

@@ -1,4 +1,5 @@
 ﻿using BeautyControl.API.Features.Products._Common;
+using BeautyControl.API.Features.Products._Common.Uploads;
 using FluentResults;
 using FluentValidation;
 using MediatR;

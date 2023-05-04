@@ -1,7 +1,7 @@
 ﻿using BeautyControl.API.Features._Common.PipelineBehaviors;
 using BeautyControl.API.Features._Common.Users;
 using BeautyControl.API.Features.Account._Common;
-using BeautyControl.API.Features.Products._Common;
+using BeautyControl.API.Features.Products._Common.Uploads;
 using BeautyControl.API.Infra.Data;
 using BeautyControl.API.Infra.Identity;
 using FluentValidation;
@@ -59,11 +59,13 @@ namespace BeautyControl.API.Configurations
             builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddScoped<CurrentUser>();
-        } 
+        }
 
         private static void RegisterFeaturesServices(WebApplicationBuilder builder)
         {
             builder.Services.AddTransient<JwtGenerator>();
+
+            builder.Services.AddTransient<ImageUploadManager>();
         }
     }
 }

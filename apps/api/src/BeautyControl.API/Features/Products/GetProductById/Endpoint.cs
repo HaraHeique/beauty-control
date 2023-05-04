@@ -28,6 +28,7 @@ namespace BeautyControl.API.Features.Products.GetProductById
             Tags = new[] { Tags.Products }
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductResponse))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async override Task<ActionResult<ProductResponse>> HandleAsync([FromRoute] int id, CancellationToken cancellationToken = default)
         {
