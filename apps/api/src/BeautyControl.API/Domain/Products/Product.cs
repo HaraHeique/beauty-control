@@ -37,5 +37,7 @@ namespace BeautyControl.API.Domain.Products
             RunningOutOfStock = runningOutOfStock;
             Category = category;
         }
+
+        public void DeleteImage() => Image = null;
     }
 }

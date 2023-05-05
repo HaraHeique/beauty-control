@@ -1,6 +1,7 @@
 ﻿using BeautyControl.API.Domain.Products;
 using BeautyControl.API.Features._Common.Users;
 using FluentResults;
+using Newtonsoft.Json;
 
 namespace BeautyControl.API.Features.Products._Common.Uploads
 {
@@ -47,31 +48,25 @@ namespace BeautyControl.API.Features.Products._Common.Uploads
             return Result.Ok();
         }
 
-        public bool DeleteImage(int productId, Image? image)
+        public Result DeleteImage(int productId, Image? image)
         {
             if (image is null)
-            {
-                _logger.LogWarning("Não é possível deletar uma imagem nula para o produto ID {id}", productId);
-                return false;
-            }
+                return Result.Fail($"Não é possível deletar uma imagem nula para o produto ID {productId}")
+                    .LogIfFailed<ImageUploadManager>();
 
             if (!Image.Validate(image.Name, image.Url))
-            {
-                _logger.LogWarning("Não é possível deletar imagem {@Imagem} do produto {Id} com campos inválidos.", image, productId);
-                return false;
-            }
+                return Result.Fail($"Não é possível deletar imagem {JsonConvert.SerializeObject(image)} do produto {productId} com campos inválidos.")
+                    .LogIfFailed<ImageUploadManager>();
 
             string path = Path.Combine(_env.WebRootPath, _wwwrootDirectory, image.Name);
 
             if (!File.Exists(path))
-            {
-                _logger.LogWarning("Não foi encontrada a imagem do produto ID {id}. Path: {Path}", productId, path);
-                return false;
-            }
+                return Result.Fail($"Não foi encontrada a imagem do produto ID {productId}. Path: {path}")
+                    .LogIfFailed<ImageUploadManager>();
 
             File.Delete(path);
 
-            return true;
+            return Result.Ok();
         }
     }
 }

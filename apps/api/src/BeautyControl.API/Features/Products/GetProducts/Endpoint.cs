@@ -24,7 +24,7 @@ namespace BeautyControl.API.Features.Products.GetProducts
         [SwaggerOperation(
             Summary = "Obter todos produtos",
             Description = "Este endpoint é responsável obter todos os produtos da base de dados. " +
-            "Uma observação que ainda não tem paginação, mas tudo bem porque a ideia é que o projeto seja de simples propósito",
+            "Uma observação que ainda não tem paginação, mas tudo bem porque a ideia é que o projeto seja de simples propósito.",
             OperationId = "Products.GetProducts",
             Tags = new[] { Tags.Products }
         )]

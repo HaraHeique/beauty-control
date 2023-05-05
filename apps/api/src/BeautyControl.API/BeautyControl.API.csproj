@@ -49,6 +49,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\Products\GetProductById\" />
     <Folder Include="Infra\Data\EntityTypeConfigurations\" />
     <Folder Include="Infra\Data\Migrations\" />
     <Folder Include="Infra\Identity\Migrations\" />

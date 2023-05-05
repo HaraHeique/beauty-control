@@ -1,9 +1,11 @@
 ﻿using FluentResults;
 using FluentValidation;
 using MediatR;
+using System.ComponentModel;
 
 namespace BeautyControl.API.Features.Products.DeleteProduct
 {
+    [DisplayName("DeleteProductRequest")]
     public record Command(int Id) : IRequest<Result>;
 
     public class CommandValidation : AbstractValidator<Command>

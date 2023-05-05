@@ -7,8 +7,8 @@ namespace BeautyControl.API.Domain.Products
 {
     public record class Image : IValueObject
     {
-        public string Name { get; set; }
-        public string Url { get; set; }
+        public string Name { get; }
+        public string Url { get; }
 
         private Image() { }
 
