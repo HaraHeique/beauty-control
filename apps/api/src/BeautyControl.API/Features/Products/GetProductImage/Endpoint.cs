@@ -13,7 +13,7 @@ namespace BeautyControl.API.Features.Products.GetProductImage
     [Route(Routes.ProductsUri)]
     public class Endpoint : EndpointBaseAsync
         .WithRequest<int>
-        .WithActionResult<ImageResponse>
+        .WithActionResult<Response>
     {
         private readonly IMediator _mediator;
 
@@ -26,10 +26,10 @@ namespace BeautyControl.API.Features.Products.GetProductImage
             OperationId = "Products.GetProductImage",
             Tags = new[] { Tags.Products }
         )]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImageResponse))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async override Task<ActionResult<ImageResponse>> HandleAsync([FromRoute] int id, CancellationToken cancellationToken = default)
+        public async override Task<ActionResult<Response>> HandleAsync([FromRoute] int id, CancellationToken cancellationToken = default)
         {
             var result = await _mediator.Send(new Query(id), cancellationToken);
 

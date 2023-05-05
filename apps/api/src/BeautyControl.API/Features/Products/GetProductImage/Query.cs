@@ -6,9 +6,10 @@ using System.ComponentModel;
 namespace BeautyControl.API.Features.Products.GetProductImage
 {
     [DisplayName("GetProductImageRequest")]
-    public record Query(int ProductId) : IRequest<Result<ImageResponse?>>;
+    public record Query(int ProductId) : IRequest<Result<Response?>>;
 
-    public record ImageResponse(string Name, string Url);
+    [DisplayName("ImageResponse")]
+    public record Response(string Name, string Url);
 
     public class QueryValidation : AbstractValidator<Query>
     {
