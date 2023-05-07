@@ -1,4 +1,5 @@
 ﻿using BeautyControl.API.Domain._Common.Errors;
+using BeautyControl.API.Domain.Products;
 using BeautyControl.API.Infra.Data;
 using FluentResults;
 using MediatR;

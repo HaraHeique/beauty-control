@@ -2,6 +2,7 @@
 using BeautyControl.API.Domain._Common.Exceptions;
 using System.Text.RegularExpressions;
 
+#pragma warning disable CS8618
 namespace BeautyControl.API.Domain.Employees
 {
     public record class Email : IValueObject
@@ -10,6 +11,9 @@ namespace BeautyControl.API.Domain.Employees
         public const int MinLength = 5;
 
         public string Address { get; }
+
+        // EF Constructor
+        private Email() { }
 
         public Email(string address)
         {

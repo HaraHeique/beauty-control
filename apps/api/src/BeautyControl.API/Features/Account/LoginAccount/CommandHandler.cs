@@ -26,26 +26,35 @@ namespace BeautyControl.API.Features.Account.LoginAccount
         {
             var user = await _userManager.FindByEmailAsync(request.Email!);
 
-            // TODO: Implementar lógica verificando se usuário está inativo
+            if (user is null) return Result.Fail("Usuário e/ou senha inválidos.");
 
-            if (user is null) return Result.Fail("Usuário e/ou senha inválidos");
+            if (!user.Active) return Result.Fail("Usuário não pode logar no sistema.");
 
-            var signInResult = await _signInManager.PasswordSignInAsync(
-                user!, request.Password!, 
-                isPersistent: false, lockoutOnFailure: true
-            );
+            var signInResult = await TryToLogin(request, user);
 
-            if (signInResult.IsLockedOut)
-                return Result.Fail("Usuário temporariamente bloqueado por vários tentativas inválidas");
-
-            if (!signInResult.Succeeded)
-                return Result.Fail("Usuário e/ou senha inválidos");
+            if (signInResult!.IsFailed) return signInResult;
 
             // TODO: Talvez publicar um evento para envio de email de que o usuário entrou na conta
 
             var jwtToken = await _jwtGenerator.GenerateToken(request.Email!);
 
             return Result.Ok(jwtToken);
+        }
+
+        private async Task<Result> TryToLogin(Command request, AppUser user)
+        {
+            var signInResult = await _signInManager.PasswordSignInAsync(
+                user!, request.Password!,
+                isPersistent: false, lockoutOnFailure: true
+            );
+
+            if (signInResult.IsLockedOut)
+                return Result.Fail("Usuário temporariamente bloqueado por vários tentativas inválidas.");
+
+            if (!signInResult.Succeeded)
+                return Result.Fail("Usuário e/ou senha inválidos.");
+
+            return Result.Ok();
         }
     }
 }

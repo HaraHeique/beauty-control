@@ -7,6 +7,18 @@ namespace BeautyControl.API.Domain.Employees
     {
         public string Name { get; set; }
         public Email Email { get; set; }
-        public bool Active { get; set; }
+        public bool Active { get; private set; }
+        public Position Position { get; set; }
+
+        // EF Constructor
+        private Employee() { }
+
+        public Employee(int id, string name, Email email, Position position) : base(id)
+        {
+            Name = name;
+            Email = email;
+            Position = position;
+            Active = true;
+        }
     }
 }

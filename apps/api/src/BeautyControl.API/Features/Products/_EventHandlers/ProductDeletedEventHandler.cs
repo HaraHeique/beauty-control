@@ -2,15 +2,13 @@
 using BeautyControl.API.Features.Products._Common.Uploads;
 using MediatR;
 
-namespace BeautyControl.API.Features.Products.DeleteProduct
+namespace BeautyControl.API.Features.Products._EventHandlers
 {
-    public record ProductDeletedEvent(Product Product) : INotification;
-
-    public class DeleteProductImageEventHandler : INotificationHandler<ProductDeletedEvent>
+    public class DeleteImageWhenProductDeletedEventHandler : INotificationHandler<ProductDeletedEvent>
     {
         private readonly ImageUploadManager _imageManager;
 
-        public DeleteProductImageEventHandler(ImageUploadManager imageManager)
+        public DeleteImageWhenProductDeletedEventHandler(ImageUploadManager imageManager)
         {
             _imageManager = imageManager;
         }

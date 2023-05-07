@@ -21,6 +21,15 @@ namespace BeautyControl.API.Features._Common.Users
 
             return claim?.Value;
         }
+        
+        public static string? GetUserName(this ClaimsPrincipal principal)
+        {
+            ValidateClaimsPrincipal(principal);
+
+            var claim = principal.FindFirst(ClaimTypes.Name);
+
+            return claim?.Value;
+        }
 
         public static IEnumerable<string> GetUserRoles(this ClaimsPrincipal principal)
         {

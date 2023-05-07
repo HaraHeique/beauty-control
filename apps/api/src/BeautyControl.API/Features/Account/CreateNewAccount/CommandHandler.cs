@@ -1,4 +1,5 @@
-﻿using BeautyControl.API.Features.Account._Common;
+﻿using BeautyControl.API.Domain.Employees;
+using BeautyControl.API.Features.Account._Common;
 using BeautyControl.API.Infra.Identity.Models;
 using FluentResults;
 using MediatR;
@@ -10,16 +11,45 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly JwtGenerator _jwtGenerator;
+        private readonly IMediator _mediator;
 
-        public CommandHandler(UserManager<AppUser> userManager, JwtGenerator jwtGenerator)
+        public CommandHandler(
+            UserManager<AppUser> userManager,
+            JwtGenerator jwtGenerator, 
+            IMediator mediator)
         {
             _userManager = userManager;
             _jwtGenerator = jwtGenerator;
+            _mediator = mediator;
         }
 
         public async Task<Result<LoggedUserResponse>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var userCreated = new AppUser
+            AppUser userCreated = CreateUserInstance(request);
+
+            var identityResult = await _userManager.CreateAsync(userCreated, request.Password!);
+
+            if (!identityResult.Succeeded)
+                return Result.Fail(GetErrors(identityResult));
+
+            var role = UserRoles.From(request.Position);
+            identityResult = await _userManager.AddToRoleAsync(userCreated, role.Name);
+
+            if (!identityResult.Succeeded)
+                return Result.Fail(GetErrors(identityResult));
+
+            await _mediator.Publish(new NewAccountCreatedEvent(userCreated.Id, request.FullName!, userCreated.Email!, request.Position), cancellationToken);
+
+            var response = await _jwtGenerator.GenerateToken(userCreated.Email!);
+
+            return Result.Ok(response);
+        }
+
+        private static IEnumerable<string> GetErrors(IdentityResult result) => result.Errors.Select(error => error.Description);
+
+        private static AppUser CreateUserInstance(Command request)
+        {
+            return new AppUser
             {
                 UserName = request.UserName,
                 Email = request.Email,
@@ -28,18 +58,6 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
                 LockoutEnabled = true,
                 Active = true
             };
-
-            var identityResult = await _userManager.CreateAsync(userCreated, request.Password!);
-
-            if (!identityResult.Succeeded)
-                return Result.Fail(identityResult.Errors.Select(error => error.Description));
-
-            // TODO: 1 - Publicar evento para enviar email para usuário
-            // TODO: 2 - Publicar evento para criar cliente a partir do usuário criado (talvez este cara chama o envio do email para usuário)
-
-            var response = await _jwtGenerator.GenerateToken(userCreated.Email!);
-
-            return Result.Ok(response);
         }
     }
 }
