@@ -1,4 +1,5 @@
-﻿using BeautyControl.API.Domain.Products;
+﻿using BeautyControl.API.Domain.Employees;
+using BeautyControl.API.Domain.Products;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
@@ -13,6 +14,7 @@ namespace BeautyControl.API.Infra.Data
         public AppDataContext(DbContextOptions<AppDataContext> options) : base(options) { }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
