@@ -26,10 +26,7 @@ namespace BeautyControl.API.Infra.Data.Migrations
             modelBuilder.Entity("BeautyControl.API.Domain.Employees.Employee", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");

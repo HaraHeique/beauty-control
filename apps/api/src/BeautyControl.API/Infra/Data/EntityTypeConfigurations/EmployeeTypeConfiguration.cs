@@ -12,6 +12,9 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
 
             builder.HasKey(e => e.Id);
 
+            builder.Property(p => p.Id)
+                .ValueGeneratedNever();
+
             builder.Property(e => e.Name)
                 .IsRequired()
                 .HasColumnType("VARCHAR(256)");

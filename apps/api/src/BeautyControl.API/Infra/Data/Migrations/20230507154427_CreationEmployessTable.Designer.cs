@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BeautyControl.API.Infra.Data.Migrations
 {
     [DbContext(typeof(AppDataContext))]
-    [Migration("20230507021447_CreationEmployeesTable")]
-    partial class CreationEmployeesTable
+    [Migration("20230507154427_CreationEmployessTable")]
+    partial class CreationEmployessTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -29,10 +29,7 @@ namespace BeautyControl.API.Infra.Data.Migrations
             modelBuilder.Entity("BeautyControl.API.Domain.Employees.Employee", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
