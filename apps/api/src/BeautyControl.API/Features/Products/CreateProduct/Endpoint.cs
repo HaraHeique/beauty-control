@@ -1,6 +1,5 @@
 ﻿using Ardalis.ApiEndpoints;
 using BeautyControl.API.Features._Common.Endpoints;
-using BeautyControl.API.Features.Account._Common;
 using BeautyControl.API.Infra.Identity.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -10,8 +9,7 @@ using System.Net;
 
 namespace BeautyControl.API.Features.Products.CreateProduct
 {
-    //[Authorize(Roles = UserRoles.AdminDisplayName)]
-    [Authorize]
+    [Authorize(Roles = UserRoles.AdminName)]
     [ApiVersion("1")]
     [Route(Routes.ProductsUri)]
     public class Endpoint : EndpointBaseAsync

@@ -1,5 +1,6 @@
 ﻿using Ardalis.ApiEndpoints;
 using BeautyControl.API.Features._Common.Endpoints;
+using BeautyControl.API.Infra.Identity.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,7 @@ using static BeautyControl.API.Features._Common.Endpoints.SwaggerOperations;
 
 namespace BeautyControl.API.Features.Products.DeleteProduct
 {
-    //[Authorize(Roles = UserRoles.AdminDisplayName)]
-    [Authorize]
+    [Authorize(Roles = UserRoles.AdminName)]
     [ApiVersion("1")]
     [Route(Routes.ProductsUri)]
     public class Endpoint : EndpointBaseAsync
