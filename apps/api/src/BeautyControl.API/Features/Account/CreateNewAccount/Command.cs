@@ -20,11 +20,11 @@ namespace BeautyControl.API.Features.Account.CreateNewAccount
 
         public Command(string? userName, string? email, string? password, string? passwordConfirmation, string? fullName, Position position)
         {
-            FullName = fullName;
             UserName = userName;
             Email = email;
             Password = password;
             PasswordConfirmation = passwordConfirmation;
+            FullName = fullName;
             Position = position;
         }
     }
