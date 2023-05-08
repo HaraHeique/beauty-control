@@ -11,6 +11,7 @@ namespace BeautyControl.API.Features._Common.Users
         public HttpContext? HttpContext => _accessor.HttpContext;
 
         public string? Name => HttpContext?.User.Identity?.Name;
+        //public string? Name => IsAuthenticated() ? HttpContext?.User.GetUserName() : null;
 
         public int Id
         {
