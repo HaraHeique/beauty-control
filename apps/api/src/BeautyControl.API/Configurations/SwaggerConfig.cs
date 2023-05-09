@@ -1,6 +1,8 @@
 ﻿using BeautyControl.API.Extensions;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace BeautyControl.API.Configurations
 {
@@ -8,25 +10,10 @@ namespace BeautyControl.API.Configurations
     {
         public static void AddSwaggerConfiguration(this WebApplicationBuilder builder)
         {
+            builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+
             builder.Services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Title = "Beauty Control API",
-                    Description = "API para consumo dos recursos da aplicação Beauty Control.",
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Harã Heique",
-                        Email = "heikacademicos@hotmail.com"
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "MIT",
-                        Url = new Uri("https://opensource.org/licenses/MIT")
-                    },
-                    Version = "v1"
-                });
-
                 options.EnableAnnotations();
                 options.CustomSchemaIds(type => type.GetDisplayName());
 
@@ -72,6 +59,50 @@ namespace BeautyControl.API.Configurations
                     }
                 });
             }
+        }
+    }
+
+    // Pegar todas as versões da API e add um doc
+    public class ConfigureSwaggerOptions : IConfigureOptions<SwaggerGenOptions>
+    {
+        readonly IApiVersionDescriptionProvider apiVersioningProvider;
+
+        public ConfigureSwaggerOptions(IApiVersionDescriptionProvider provider) 
+            => apiVersioningProvider = provider;
+
+        public void Configure(SwaggerGenOptions options)
+        {
+            foreach (var description in apiVersioningProvider.ApiVersionDescriptions)
+            {
+                options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+            }
+        }
+
+        static OpenApiInfo CreateInfoForApiVersion(ApiVersionDescription description)
+        {
+            return new OpenApiInfo
+            {
+                Title = "Beauty Control API",
+                Description = GetInfoDescription(description),
+                Contact = new OpenApiContact
+                {
+                    Name = "Harã Heique",
+                    Email = "heikacademicos@hotmail.com"
+                },
+                License = new OpenApiLicense
+                {
+                    Name = "MIT",
+                    Url = new Uri("https://opensource.org/licenses/MIT")
+                },
+                Version = description.ApiVersion.ToString()
+            };
+        }
+
+        static string GetInfoDescription(ApiVersionDescription description)
+        {
+            string obsoleta = description.IsDeprecated ? "<b>Esta versão está obsoleta!</b>" : string.Empty;
+
+            return $"API para consumo dos recursos da aplicação Beauty Control. {obsoleta}";
         }
     }
 }
