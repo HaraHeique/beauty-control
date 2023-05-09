@@ -4,7 +4,7 @@ using Dapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace BeautyControl.API.Features.Products.GetProducts
+namespace BeautyControl.API.Features.Products.GetProducts.V1
 {
     public class QueryHandler : IRequestHandler<Query, IEnumerable<ProductResponse>>
     {

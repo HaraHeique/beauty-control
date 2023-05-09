@@ -7,7 +7,7 @@ using static BeautyControl.API.Features._Common.Endpoints.SwaggerOperations;
 using Swashbuckle.AspNetCore.Annotations;
 using MediatR;
 
-namespace BeautyControl.API.Features.Products.GetProducts
+namespace BeautyControl.API.Features.Products.GetProducts.V1
 {
     [Authorize]
     [ApiVersion("1")]
@@ -20,12 +20,12 @@ namespace BeautyControl.API.Features.Products.GetProducts
 
         public Endpoint(IMediator mediator) => _mediator = mediator;
 
-        [HttpGet()]
+        [HttpGet]
         [SwaggerOperation(
             Summary = "Obter todos produtos",
             Description = "Este endpoint é responsável obter todos os produtos da base de dados. " +
             "Uma observação que ainda não tem paginação, mas tudo bem porque a ideia é que o projeto seja de simples propósito.",
-            OperationId = "Products.GetProducts",
+            OperationId = "Products.GetProducts.V1",
             Tags = new[] { Tags.Products }
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProductResponse))]
