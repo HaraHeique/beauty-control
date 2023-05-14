@@ -5,20 +5,19 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using static BeautyControl.API.Features._Common.Endpoints.SwaggerOperations;
 
-namespace BeautyControl.API.Features.Account.ActiveDeactiveAccount
+namespace BeautyControl.API.Features.Account.ChangePasswordAccount
 {
     #pragma warning disable CS8618
     public record Request
     {
         [FromRoute(Name = "id")] public int Id { get; init; }
-        [FromBody] public ActiveOrDeactiveUserRequest Body { get; init; }
+        [FromBody] public ChangePasswordRequest Body { get; init; }
 
-        public record ActiveOrDeactiveUserRequest(bool Active);
+        public record ChangePasswordRequest(string NewPassword, string PasswordConfirmation);
     }
 
-    [Authorize(Roles = UserRoles.AdminName)] // TODO: Melhorar aqui olhando para a role uma claim específica
+    [Authorize(Roles = UserRoles.AdminName)]
     [ApiVersion("1")]
     [Route(Routes.AccountUri)]
     public class Endpoint : EndpointBaseAsync
@@ -29,19 +28,22 @@ namespace BeautyControl.API.Features.Account.ActiveDeactiveAccount
 
         public Endpoint(IMediator mediator) => _mediator = mediator;
 
-        [HttpPatch("users/{id:int}/active")]
+        [HttpPatch("users/{id:int}/change-password")]
         [SwaggerOperation(
-            Summary = "Ativar ou desativar um usuário existente.",
-            Description = "Responsável por ativar ou desativer um usuário através do seu Identificar e também pelo booleano indicando se vai ser ativado (true) ou desativado (false).",
-            OperationId = "Account.ActiveDeactiveAccount",
-            Tags = new[] { Tags.Account }
+            Summary = "Alterar a senha da conta de um determinado usuário",
+            Description = "Alteração da senha do usuário a partir de seu ID. Lembrando que a mudança só é feito por um administrador.",
+            OperationId = "Account.ChangePasswordAccount",
+            Tags = new[] { SwaggerOperations.Tags.Account }
         )]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public override async Task<ActionResult> HandleAsync([FromRoute] Request request, CancellationToken cancellationToken = default)
         {
-            var result = await _mediator.Send(new Command(request.Id, request.Body.Active), cancellationToken);
+            (var newPassword, var newPasswordConfirmation) = request.Body;
+            var result = await _mediator.Send(new Command(request.Id, newPassword, newPasswordConfirmation), cancellationToken);
 
             return this.Response(result);
         }
