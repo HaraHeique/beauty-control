@@ -4,12 +4,12 @@ using MediatR;
 
 namespace BeautyControl.API.Features.Employees
 {
-    public class UserPositionChangedEventHandler : INotificationHandler<UserPositionChangedEvent>
+    public class ChangeEmployeePositionWhenUserPositionChangedEventHandler : INotificationHandler<UserPositionChangedEvent>
     {
         private readonly AppDataContext _context;
-        private readonly ILogger<UserPositionChangedEventHandler> _logger;
+        private readonly ILogger<ChangeEmployeePositionWhenUserPositionChangedEventHandler> _logger;
 
-        public UserPositionChangedEventHandler(AppDataContext context, ILogger<UserPositionChangedEventHandler> logger)
+        public ChangeEmployeePositionWhenUserPositionChangedEventHandler(AppDataContext context, ILogger<ChangeEmployeePositionWhenUserPositionChangedEventHandler> logger)
         {
             _context = context;
             _logger = logger;

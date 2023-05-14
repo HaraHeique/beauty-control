@@ -5,13 +5,13 @@ using MediatR;
 // TODO: Criar eventos aqui também para mandar email para funcionário avisando que foi ativado ou desativado
 namespace BeautyControl.API.Features.Employees
 {
-    public class AccountActivedEventHandler : INotificationHandler<AccountActivedEvent>
+    public class AccountActivatedEventHandler : INotificationHandler<AccountActivatedEvent>
     {
         private readonly AppDataContext _context;
 
-        public AccountActivedEventHandler(AppDataContext context) => _context = context;
+        public AccountActivatedEventHandler(AppDataContext context) => _context = context;
 
-        public async Task Handle(AccountActivedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(AccountActivatedEvent notification, CancellationToken cancellationToken)
         {
             var employee = await _context.Employees.FindAsync(new object?[] { notification.Id }, cancellationToken: cancellationToken);
 
@@ -21,13 +21,13 @@ namespace BeautyControl.API.Features.Employees
         }
     }
     
-    public class AccountDeactivedEventHandler : INotificationHandler<AccountDeactivedEvent>
+    public class AccountDeactivatedEventHandler : INotificationHandler<AccountDeactivatedEvent>
     {
         private readonly AppDataContext _context;
 
-        public AccountDeactivedEventHandler(AppDataContext context) => _context = context;
+        public AccountDeactivatedEventHandler(AppDataContext context) => _context = context;
 
-        public async Task Handle(AccountDeactivedEvent notification, CancellationToken cancellationToken)
+        public async Task Handle(AccountDeactivatedEvent notification, CancellationToken cancellationToken)
         {
             var employee = await _context.Employees.FindAsync(new object?[] { notification.Id }, cancellationToken: cancellationToken);
 

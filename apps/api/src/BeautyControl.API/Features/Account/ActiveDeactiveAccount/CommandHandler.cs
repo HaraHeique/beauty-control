@@ -29,7 +29,7 @@ namespace BeautyControl.API.Features.Account.ActiveDeactiveAccount
             user.Active = request.Active;
             await _userManager.UpdateAsync(user);
 
-            object @event = request.Active ? new AccountActivedEvent(user.Id) : new AccountDeactivedEvent(user.Id);
+            object @event = request.Active ? new AccountActivatedEvent(user.Id) : new AccountDeactivatedEvent(user.Id);
             await _mediator.Publish(@event, cancellationToken);
 
             return Result.Ok();
