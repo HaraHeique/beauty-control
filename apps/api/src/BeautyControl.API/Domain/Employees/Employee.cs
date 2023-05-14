@@ -24,5 +24,7 @@ namespace BeautyControl.API.Domain.Employees
         public void ActiveEmployee() => Active = true;
 
         public void DeactiveEmployee() => Active = false;
+
+        public void ChangeName(string newName) => Name = newName;
     }
 }
