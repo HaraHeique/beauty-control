@@ -21,10 +21,14 @@ namespace BeautyControl.API.Domain.Employees
             Active = true;
         }
 
+        // Ad-hoc setters methods (não são necessários, mas OK ter também)
+
         public void ActiveEmployee() => Active = true;
 
         public void DeactiveEmployee() => Active = false;
 
         public void ChangeName(string newName) => Name = newName;
+
+        public void ChangePosition(Position position) => Position = position;
     }
 }

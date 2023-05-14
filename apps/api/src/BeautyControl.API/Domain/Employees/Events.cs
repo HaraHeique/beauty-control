@@ -10,4 +10,6 @@ namespace BeautyControl.API.Domain.Employees
     public sealed record AccountDeactivedEvent(int Id) : INotification;
 
     public sealed record UserAccountNameUpdatedEvent(int Id, string FullName) : INotification;
+
+    public sealed record UserPositionChangedEvent(int Id, Position Position) : INotification;
 }
