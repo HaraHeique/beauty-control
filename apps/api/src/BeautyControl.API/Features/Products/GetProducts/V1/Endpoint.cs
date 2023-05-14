@@ -20,6 +20,7 @@ namespace BeautyControl.API.Features.Products.GetProducts.V1
 
         public Endpoint(IMediator mediator) => _mediator = mediator;
 
+        [Obsolete("Use a versão V2 paginado desse método.")]
         [HttpGet]
         [SwaggerOperation(
             Summary = "Obter todos produtos",
