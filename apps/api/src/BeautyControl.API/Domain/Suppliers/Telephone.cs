@@ -10,6 +10,9 @@ namespace BeautyControl.API.Domain.Suppliers
 
         public string FormattedNumber => GetFormattedNumber();
 
+        // EF Constructor
+        private Telephone() { }
+
         public Telephone(string phoneNumber)
         {
             RawNumber = Validate(phoneNumber) ? phoneNumber : throw new DomainException("Número de telefone inválido");

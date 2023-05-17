@@ -11,6 +11,6 @@ namespace BeautyControl.API.Domain.Suppliers
         public decimal AverageRating { get; set; }
         public DateTime CreationDate { get; set; }
 
-        public IList<Supplier> SupplierRating { get; set; }
+        public IList<SupplierRating> SupplierRatings { get; set; }
     }
 }

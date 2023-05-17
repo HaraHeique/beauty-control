@@ -1,5 +1,6 @@
 ﻿using BeautyControl.API.Domain.Employees;
 using BeautyControl.API.Domain.Products;
+using BeautyControl.API.Domain.Suppliers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System.Reflection;
@@ -15,6 +16,8 @@ namespace BeautyControl.API.Infra.Data
 
         public DbSet<Product> Products { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<SupplierRating> SupplierRatings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -33,12 +36,12 @@ namespace BeautyControl.API.Infra.Data
                 IEnumerable<IMutableProperty> stringColumnsType = GetAllPropertiesByType(modelBuilder, typeof(string));
 
                 foreach (var property in stringColumnsType)
-                    property.SetColumnType("varchar(128)");
+                    property.SetColumnType("VARCHAR(128)");
 
                 IEnumerable<IMutableProperty> decimalColumnsType = GetAllPropertiesByType(modelBuilder, typeof(decimal));
 
                 foreach (var property in decimalColumnsType)
-                    property.SetColumnType("decimal(18,2)");
+                    property.SetColumnType("DECIMAL(18,2)");
 
                 IEnumerable<IMutableProperty> GetAllPropertiesByType(ModelBuilder modelBuilder, Type type)
                 {
