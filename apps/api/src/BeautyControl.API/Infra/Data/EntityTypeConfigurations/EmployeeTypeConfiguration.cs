@@ -23,6 +23,10 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
                 .IsRequired()
                 .HasColumnType("INT");
 
+            builder.Property(e => e.Active)
+                .IsRequired()
+                .HasColumnType("BIT");
+
             builder.OwnsOne(e => e.Email, ownerBuilder =>
             {
                 ownerBuilder.Property(e => e.Address)
