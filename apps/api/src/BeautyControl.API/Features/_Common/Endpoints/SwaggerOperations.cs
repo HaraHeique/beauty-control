@@ -4,8 +4,9 @@
     {
         public static class Tags
         {
-            public const string Products = nameof(Products);
             public const string Account = nameof(Account);
+            public const string Products = nameof(Products);
+            public const string Suppliers = nameof(Suppliers);
         }
     }
 }

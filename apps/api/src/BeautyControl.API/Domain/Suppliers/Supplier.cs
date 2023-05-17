@@ -8,9 +8,18 @@ namespace BeautyControl.API.Domain.Suppliers
         public string Name { get; set; }
         public string Observation { get; set; }
         public Telephone Telephone { get; set; }
-        public decimal AverageRating { get; set; }
-        public DateTime CreationDate { get; set; }
+        public decimal AverageRating { get; private set; }
+        public DateTime CreationDate { get; private set; }
 
         public IList<SupplierRating> SupplierRatings { get; set; }
+
+        public Supplier(string name, string observation, Telephone telephone)
+        {
+            Name = name;
+            Observation = observation;
+            Telephone = telephone;
+            AverageRating = 0;
+            CreationDate = DateTime.Now;
+        }
     }
 }
