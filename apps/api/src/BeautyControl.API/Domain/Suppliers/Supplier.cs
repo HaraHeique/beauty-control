@@ -13,6 +13,9 @@ namespace BeautyControl.API.Domain.Suppliers
 
         public IList<SupplierRating> SupplierRatings { get; set; }
 
+        // EF Constructor
+        private Supplier() { }
+
         public Supplier(string name, string observation, Telephone telephone)
         {
             Name = name;

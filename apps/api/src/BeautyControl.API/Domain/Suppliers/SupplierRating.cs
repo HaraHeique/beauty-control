@@ -11,5 +11,8 @@ namespace BeautyControl.API.Domain.Suppliers
 
         public Supplier Supplier { get; set; }
         public Employee Employee { get; set; }
+
+        // EF Constructor
+        private SupplierRating() { }
     }
 }

@@ -11,6 +11,7 @@ namespace BeautyControl.API.Configurations
         public static void AddSwaggerConfiguration(this WebApplicationBuilder builder)
         {
             builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            //builder.Services.ConfigureOptions<ConfigureSwaggerOptions>();
 
             builder.Services.AddSwaggerGen(options =>
             {

@@ -28,6 +28,7 @@ static void ConfigurePipeline(WebApplication app)
     app.UseApiConfiguration();
     app.UseAuthConfiguration();
     app.UseSwaggerConfiguration();
+    app.EnsureRunMigration();
 }
 
 #endregion
