@@ -24,8 +24,8 @@ namespace BeautyControl.API.Configurations
 
             RunMigrations(identityContext, app.Configuration);
             
-            RunMigrations(dataContext, app.Configuration, new string[] { 
-                ProductSeedData.GetScriptSQL()
+            RunMigrations(dataContext, app.Configuration, new string[] {
+                ProductSeedData.GetScriptSQL(), SupplierSeedData.GetScriptSQL()
             });
         }
 
@@ -37,7 +37,7 @@ namespace BeautyControl.API.Configurations
                 EnsureSeedData(context, sqlScriptsForSeedData);
             }
             else if (HasPendingMigrations(context, configuration))
-                context.Database.Migrate();
+                context.Database.Migrate(); // Esta é a linha mais importante e de fato executa as migrations
         }
 
         private static void EnsureSeedData(DbContext context, params string[] sqlScripts)
