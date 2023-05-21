@@ -1,4 +1,5 @@
 ﻿using BeautyControl.API.Infra.Data;
+using BeautyControl.API.Infra.Data.SeedData;
 using BeautyControl.API.Infra.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,38 +15,56 @@ namespace BeautyControl.API.Configurations
         /// <param name="app"></param>
         public static void EnsureRunMigration(this WebApplication app)
         {
+            if (ShouldAutoRunMigration(app.Configuration) == false) return;
+
             using var scope = app.Services.CreateScope();
 
-            // Posso verificar via HealthChecks se o banco tá Up e também verificar o ambiente que está sendo executado
-
-            RunIdentityMigrations(scope);
-            RunBusinessDataMigrations(scope);
-        }
-
-        private static void RunIdentityMigrations(IServiceScope scope)
-        {
+            var dataContext = scope.ServiceProvider.GetRequiredService<AppDataContext>();
             var identityContext = scope.ServiceProvider.GetRequiredService<AppIdentityContext>();
 
-            if (HasPendingMigrations(identityContext))
-                identityContext.Database.Migrate();
-        }
-        
-        private static void RunBusinessDataMigrations(IServiceScope scope)
-        {
-            var dataContext = scope.ServiceProvider.GetRequiredService<AppDataContext>();
-
-            if (HasPendingMigrations(dataContext))
-                dataContext.Database.Migrate();
+            RunMigrations(identityContext, app.Configuration);
+            
+            RunMigrations(dataContext, app.Configuration, new string[] { 
+                ProductSeedData.GetScriptSQL()
+            });
         }
 
-        private static bool HasPendingMigrations(DbContext context)
+        private static void RunMigrations(DbContext context, IConfiguration configuration, params string[] sqlScriptsForSeedData)
         {
-            return context.Database.GetPendingMigrations().Any();
+            if (HasNoMigrationsApplied(context, configuration))
+            {
+                context.Database.Migrate();
+                EnsureSeedData(context, sqlScriptsForSeedData);
+            }
+            else if (HasPendingMigrations(context, configuration))
+                context.Database.Migrate();
         }
 
-        private static void EnsureSeedData(DbContext context)
+        private static void EnsureSeedData(DbContext context, params string[] sqlScripts)
         {
-            // TODO: Fazer aqui a lógica para o Seed de dados em ambos contextos criados
+            using var transaction = context.Database.BeginTransaction();
+
+            try
+            {
+                foreach (var sql in sqlScripts)
+                    context.Database.ExecuteSqlRaw(sql);
+
+                transaction.Commit();
+            }
+            catch (Exception)
+            {
+                transaction.Rollback();
+                throw;
+            }
         }
+
+        private static bool HasPendingMigrations(DbContext context, IConfiguration configuration) 
+            => ShouldAutoRunMigration(configuration) && context.Database.GetPendingMigrations().Any();
+
+        private static bool HasNoMigrationsApplied(DbContext context, IConfiguration configuration) 
+            => configuration.GetValue<bool>("Migrations:SeedData") && !context.Database.GetAppliedMigrations().Any();
+
+        private static bool ShouldAutoRunMigration(IConfiguration configuration)
+            => configuration.GetValue<bool>("Migrations:AutoRun");
     }
 }
