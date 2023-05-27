@@ -1,4 +1,5 @@
-﻿using BeautyControl.API.Features._Common.PipelineBehaviors;
+﻿using BeautyControl.API.Features._Common.Contracts;
+using BeautyControl.API.Features._Common.PipelineBehaviors;
 using BeautyControl.API.Features._Common.Users;
 using BeautyControl.API.Features.Account._Common;
 using BeautyControl.API.Features.Products._Common.Uploads;
@@ -66,6 +67,18 @@ namespace BeautyControl.API.Configurations
             builder.Services.AddTransient<JwtGenerator>();
 
             builder.Services.AddTransient<ImageUploadManager>();
+
+            RegisterDynamicServices();
+
+            void RegisterDynamicServices()
+            {
+                var serviceTypes = Assembly.GetExecutingAssembly()
+                    .GetTypes()
+                    .Where(type => type.IsClass && !type.IsAbstract && type.IsAssignableTo(typeof(IInjectableService)));
+
+                foreach (var type in serviceTypes)
+                    builder.Services.AddTransient(type);
+            }
         }
     }
 }

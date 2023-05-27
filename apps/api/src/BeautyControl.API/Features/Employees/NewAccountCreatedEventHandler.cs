@@ -20,6 +20,8 @@ namespace BeautyControl.API.Features.Employees
 
             await _context.Employees.AddAsync(employee, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
+
+            // TODO: Criar um novo notification handler de envio de email de notificação ou publicar um evento após criação do funcionário
         }
     }
 }
