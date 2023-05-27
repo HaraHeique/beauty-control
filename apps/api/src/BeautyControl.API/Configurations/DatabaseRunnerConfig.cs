@@ -61,8 +61,12 @@ namespace BeautyControl.API.Configurations
         private static bool HasPendingMigrations(DbContext context, IConfiguration configuration) 
             => ShouldAutoRunMigration(configuration) && context.Database.GetPendingMigrations().Any();
 
-        private static bool HasNoMigrationsApplied(DbContext context, IConfiguration configuration) 
-            => configuration.GetValue<bool>("Migrations:SeedData") && !context.Database.GetAppliedMigrations().Any();
+        private static bool HasNoMigrationsApplied(DbContext context, IConfiguration configuration)
+        {
+            return ShouldAutoRunMigration(configuration) &&
+                   configuration.GetValue<bool>("Migrations:SeedData") &&
+                   !context.Database.GetAppliedMigrations().Any();
+        }
 
         private static bool ShouldAutoRunMigration(IConfiguration configuration)
             => configuration.GetValue<bool>("Migrations:AutoRun");

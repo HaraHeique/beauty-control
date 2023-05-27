@@ -1,6 +1,8 @@
 ﻿using BeautyControl.API.Infra.Data;
+using Dapper;
 using FluentResults;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeautyControl.API.Features.Suppliers.UpdateSupplier
 {
@@ -12,8 +14,9 @@ namespace BeautyControl.API.Features.Suppliers.UpdateSupplier
 
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
-            // TODO: Fazer a lógica aqui usando o Dapper para mostrar uma forma diferente de utilizar isso sem de ser pelo EF Core
-            throw new NotImplementedException();
+            using var dbConnection = _context.Database.GetDbConnection();
+
+            await DataAccess.UpdateSupplier(dbConnection, request);
 
             return Result.Ok();
         }
