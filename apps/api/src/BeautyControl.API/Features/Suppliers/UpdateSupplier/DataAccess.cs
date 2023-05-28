@@ -11,17 +11,6 @@ namespace BeautyControl.API.Features.Suppliers.UpdateSupplier
 
         public DataAccess(AppDataContext context) => _context = context;
 
-        //public virtual async Task<bool> ExistsSupplier(int id)
-        //{
-        //    using var dbConnection = _context.Database.GetDbConnection();
-
-        //    var @params = new { Id = id };
-
-        //    return await dbConnection.QueryFirstAsync<int>(@"
-        //        SELECT COUNT(*) FROM [BeautyControl].[Business].[Suppliers] WHERE Id = @Id;
-        //    ", @params) > 0;
-        //}
-
         public virtual async Task<int> UpdateSupplier(Command request)
         {
             using var dbConnection = _context.Database.GetDbConnection();
@@ -39,10 +28,10 @@ namespace BeautyControl.API.Features.Suppliers.UpdateSupplier
                 SET [Name] = @Name,
                     [Observation] = @Observation,
                     [Telephone] = @Telephone
-                 WHERE Id = @Id
+                WHERE Id = @Id
             ", @params);
         }
-        
+
         //public static async Task UpdateSupplier(IDbConnection dbConnection, Command request)
         //{
         //    var @params = new
