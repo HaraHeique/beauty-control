@@ -1,4 +1,5 @@
 ﻿using BeautyControl.API.Domain._Common;
+using BeautyControl.API.Domain._Common.Exceptions;
 
 #nullable disable
 namespace BeautyControl.API.Domain.Products
@@ -39,5 +40,17 @@ namespace BeautyControl.API.Domain.Products
         }
 
         public void DeleteImage() => Image = null;
+
+        public void AddInStock(int quantity)
+        {
+            if (quantity <= 0) throw new DomainException("A quantidade deve ser maior que zero!");
+
+            Quantity += quantity;
+
+            if (Quantity <= RunningOutOfStock)
+                Status = StatusStock.RunningOutOfStock;
+            else
+                Status = StatusStock.InStock;
+        }
     }
 }

@@ -10,16 +10,13 @@ namespace BeautyControl.API.Features.Products._Common.Uploads
         where TResponse : ResultBase
     {
         private readonly AppDataContext _context;
-        private readonly ILogger<ImageUploadBehavior<TRequest, TResponse>> _logger;
         private readonly ImageUploadManager _uploadManager;
 
         public ImageUploadBehavior(
             AppDataContext context,
-            ILogger<ImageUploadBehavior<TRequest, TResponse>> logger,
             ImageUploadManager uploadManager)
         {
             _context = context;
-            _logger = logger;
             _uploadManager = uploadManager;
         }
 

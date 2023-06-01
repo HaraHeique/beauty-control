@@ -51,6 +51,8 @@ namespace BeautyControl.API.Configurations
                 config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(FluentResultRequestValidationBehavior<,>));
                 config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(FluentValidationRequestValidationBehavior<,>));
 
+                config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(AtomicTransactionBehavior<,>));
+
                 config.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ImageUploadBehavior<,>));
             });
         }

@@ -26,7 +26,7 @@ namespace BeautyControl.API.Features.Products._Common
                 .MaximumLength(2000).WithMessage("O campo descrição deve no máximo {MaxLength} caracteres.");
 
             RuleFor(c => c.RunningOutOfStock)
-                .GreaterThan(0).WithName("O campo de baixo estoque não pode ser negativo.");
+                .GreaterThan(0).WithMessage("O campo de baixo estoque não pode ser negativo.");
 
             RuleFor(c => c.Category)
                 .IsInEnum().WithMessage("O campo categoria não abrange valores válidos");
