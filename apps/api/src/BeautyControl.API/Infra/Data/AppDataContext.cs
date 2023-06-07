@@ -1,5 +1,6 @@
 ﻿using BeautyControl.API.Domain.Employees;
 using BeautyControl.API.Domain.Products;
+using BeautyControl.API.Domain.StockMovements;
 using BeautyControl.API.Domain.Suppliers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
@@ -18,6 +19,7 @@ namespace BeautyControl.API.Infra.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<SupplierRating> SupplierRatings { get; set; }
+        public DbSet<StockMovements> StockMovements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,7 +58,7 @@ namespace BeautyControl.API.Infra.Data
                     .SelectMany(e => e.GetForeignKeys());
 
                 foreach (var relationship in foreignKeys)
-                    relationship.DeleteBehavior = DeleteBehavior.ClientSetNull;
+                    relationship.DeleteBehavior = DeleteBehavior.Cascade;
             }
 
             #endregion
