@@ -1,262 +1,475 @@
 {
 	"info": {
-		"_postman_id": "7cdff3da-53d3-41ab-a189-5d0e2b1bd7b8",
+		"_postman_id": "beb9094c-1031-4316-b48b-dc70d21134d5",
 		"name": "beauty-control",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "14038161"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "Products",
 			"item": [
 				{
-					"name": "/",
-					"event": [
+					"name": "V1",
+					"item": [
 						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{bearer-schema}} {{jwt-token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
+							"name": "/",
+							"event": [
 								{
-									"key": "Name",
-									"value": "Produto 4",
-									"type": "text"
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
 								},
 								{
-									"key": "Description",
-									"value": "teste",
-									"type": "text"
-								},
-								{
-									"key": "RunningOutOfStock",
-									"value": "40",
-									"type": "text"
-								},
-								{
-									"key": "Category",
-									"value": "4",
-									"description": "Face = 1, Skin, Hair, Nail",
-									"type": "text"
-								},
-								{
-									"key": "ImageUpload",
-									"type": "file",
-									"src": []
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
 								}
-							]
-						},
-						"url": {
-							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products",
-							"host": [
-								"{{host-local-ssl}}"
 							],
-							"path": [
-								"{{api-prefix}}",
-								"v1",
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/{id}",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
 								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{bearer-schema}} {{jwt-token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "FormData.Id",
-									"value": "5",
-									"type": "text"
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Name",
+											"value": "Produto 2",
+											"type": "text"
+										},
+										{
+											"key": "Description",
+											"value": "Produto 2 de teste",
+											"type": "text"
+										},
+										{
+											"key": "RunningOutOfStock",
+											"value": "100",
+											"type": "text"
+										},
+										{
+											"key": "Category",
+											"value": "2",
+											"description": "Face = 1, Skin, Hair, Nail",
+											"type": "text"
+										},
+										{
+											"key": "ImageUpload",
+											"type": "file",
+											"src": []
+										}
+									]
 								},
-								{
-									"key": "FormData.Name",
-									"value": "Semana das crianças 2",
-									"type": "text"
-								},
-								{
-									"key": "FormData.Description",
-									"value": "Muitas crianças 3",
-									"type": "text"
-								},
-								{
-									"key": "FormData.RunningOutOfStock",
-									"value": "30",
-									"type": "text"
-								},
-								{
-									"key": "FormData.Category",
-									"value": "4",
-									"description": "Face = 1, Skin, Hair, Nail",
-									"type": "text"
-								},
-								{
-									"key": "FormData.ImageUpload",
-									"type": "file",
-									"src": "/D:/Projetos/VITRINE/Download/POC - Qualidade imagem/TESTE_BANCO/IMG-4-P.jpg"
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products"
+									]
 								}
-							]
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/4",
-							"host": [
-								"{{host-local-ssl}}"
+						{
+							"name": "/{id}",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"{{api-prefix}}",
-								"v1",
-								"products",
-								"4"
-							]
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "FormData.Id",
+											"value": "8",
+											"type": "text"
+										},
+										{
+											"key": "FormData.Name",
+											"value": "Meu retrato",
+											"type": "text"
+										},
+										{
+											"key": "FormData.Description",
+											"value": "Esta é a foto do meu retrato, que é uma foto de anime ;)",
+											"type": "text"
+										},
+										{
+											"key": "FormData.RunningOutOfStock",
+											"value": "35",
+											"type": "text"
+										},
+										{
+											"key": "FormData.Category",
+											"value": "1",
+											"description": "Face = 1, Skin, Hair, Nail",
+											"type": "text"
+										},
+										{
+											"key": "FormData.ImageUpload",
+											"type": "file",
+											"src": "/C:/Users/U003614/Pictures/Saved Pictures/download.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/8",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/9",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products",
+										"9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}/image",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/9/image",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products",
+										"9",
+										"image"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/8",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}/image",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/8/image",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products",
+										"8",
+										"image"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "/{id}",
-					"event": [
+					"name": "V2",
+					"item": [
 						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{bearer-schema}} {{jwt-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/1",
-							"host": [
-								"{{host-local-ssl}}"
+							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
 							],
-							"path": [
-								"{{api-prefix}}",
-								"v1",
-								"products",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "/",
-					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
 								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v2/products?pageNumber=1&pageSize=1",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v2",
+										"products"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "1",
+											"description": "Número da página desejada"
+										},
+										{
+											"key": "pageSize",
+											"value": "1",
+											"description": "Quantidade de itens da página desejada"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{bearer-schema}} {{jwt-token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products",
-							"host": [
-								"{{host-local-ssl}}"
-							],
-							"path": [
-								"{{api-prefix}}",
-								"v1",
-								"products"
-							]
-						}
-					},
-					"response": []
+					]
 				}
 			]
 		},
@@ -292,7 +505,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"userName\": \"HaraHeique\",\r\n  \"email\": \"heik.teste@gmail.com\",\r\n  \"password\": \"Teste@123\",\r\n  \"passwordConfirmation\": \"Teste@123\"\r\n}",
+							"raw": "{\r\n  \"userName\": \"JoaquinaSantana\",\r\n  \"email\": \"joaquina_santana.teste@gmail.com\",\r\n  \"password\": \"Teste@123\",\r\n  \"passwordConfirmation\": \"Teste@123\",\r\n  \"fullName\": \"Joaquina Santana da Silva\",\r\n  \"Position\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -364,6 +577,373 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "/users/{id}/active",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"active\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/users/5/active",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"users",
+								"5",
+								"active"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/change-password",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"Teste@123\",\r\n    \"passwordConfirmation\": \"Teste@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/users/5/change-password",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"users",
+								"5",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/update-names",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"LarissaMoita\",\r\n    \"fullName\": \"Larissa Santos da Moita\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/users/5/update-names",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"users",
+								"5",
+								"update-names"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}/change-position",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"position\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/users/5/change-position",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"users",
+								"5",
+								"change-position"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/current-user",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/current-user",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"current-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/users/4",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/users/{id}",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/account/users",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"account",
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -387,6 +967,324 @@
 							""
 						]
 					}
+				}
+			]
+		},
+		{
+			"name": "Supplier",
+			"item": [
+				{
+					"name": "V1",
+					"item": [
+						{
+							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Fornecedor 2\",\r\n    \"observation\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\r\n    \"telephone\": \"27998808574\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"suppliers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/1",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"suppliers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Joaquinas Fornecimento\",\r\n    \"observation\": \"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout\",\r\n    \"telephone\": \"27998808575\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/2",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"suppliers",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/1",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"suppliers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "V2",
+					"item": [
+						{
+							"name": "/",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v2/suppliers?pageNumber=-2&pageSize=1",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v2",
+										"suppliers"
+									],
+									"query": [
+										{
+											"key": "pageNumber",
+											"value": "-2",
+											"description": "Número da página desejada"
+										},
+										{
+											"key": "pageSize",
+											"value": "1",
+											"description": "Quantidade de itens da página desejada"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
