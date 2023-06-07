@@ -29,15 +29,15 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
 
             builder.HasOne(sm => sm.Product)
                 .WithMany()
-                .HasForeignKey("ProductId");
+                .HasForeignKey(sm => sm.ProductId);
 
             builder.HasOne(sm => sm.Supplier)
                 .WithMany()
-                .HasForeignKey("SupplierId");
+                .HasForeignKey(sm => sm.SupplierId);
             
             builder.HasOne(sm => sm.Employee)
                 .WithMany()
-                .HasForeignKey("EmployeeId");
+                .HasForeignKey(sm => sm.EmployeeId);
         }
     }
 }

@@ -3,10 +3,7 @@ using BeautyControl.API.Domain.Products;
 using BeautyControl.API.Domain.StockMovements;
 using BeautyControl.API.Features._Common.Users;
 using BeautyControl.API.Infra.Data;
-using Dapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace BeautyControl.API.Features.Products._EventHandlers
 {
@@ -27,22 +24,13 @@ namespace BeautyControl.API.Features.Products._EventHandlers
         {
             if (_currentUser.Id == 0) throw new DomainException("Usuário não existe na base!");
 
-            using IDbConnection dbConnection = _context.Database.GetDbConnection();
+            var inputStockMovement = StockMovements.InputStockMovement(
+                notification.Quantity, notification.ProductId,
+                notification.SupplierId, _currentUser.Id
+            );
 
-            var @params = new
-            {
-                notification.Quantity,
-                Date = DateTime.Now,
-                Process = StockProcess.Input,
-                notification.ProductId,
-                notification.SupplierId,
-                EmployeeId = _currentUser.Id
-            };
-
-            await dbConnection.ExecuteAsync(@"
-                INSERT INTO [BeautyControl].[Business].[StockMovements](Quantity, Date, Process, ProductId, SupplierId, EmployeeId)
-                VALUES (@Quantity, @Date, @Process, @ProductId, @SupplierId, @EmployeeId); 
-            ", @params);
+            await _context.StockMovements.AddAsync(inputStockMovement, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
     
@@ -63,22 +51,12 @@ namespace BeautyControl.API.Features.Products._EventHandlers
         {
             if (_currentUser.Id == 0) throw new DomainException("Usuário não existe na base!");
 
-            using IDbConnection dbConnection = _context.Database.GetDbConnection();
+            var outputStockMovement = StockMovements.OutputStockMovement(
+                notification.Quantity, notification.ProductId, _currentUser.Id
+            );
 
-            var @params = new
-            {
-                notification.Quantity,
-                Date = DateTime.Now,
-                Process = StockProcess.Output,
-                notification.ProductId,
-                SupplierId = (int?)null,
-                EmployeeId = _currentUser.Id
-            };
-
-            await dbConnection.ExecuteAsync(@"
-                INSERT INTO [BeautyControl].[Business].[StockMovements](Quantity, Date, Process, ProductId, SupplierId, EmployeeId)
-                VALUES (@Quantity, @Date, @Process, @ProductId, @SupplierId, @EmployeeId); 
-            ", @params);
+            await _context.StockMovements.AddAsync(outputStockMovement, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
         }
     }
 }
