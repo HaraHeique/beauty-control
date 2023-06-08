@@ -15,10 +15,10 @@ namespace BeautyControl.API.Features._Common.Endpoints
 
             return ErrorResponse(endpoint, result);
         }
-        
+
         public static ActionResult Response<TResponse>(this EndpointBase endpoint, Result<TResponse> result, HttpStatusCode statusCode)
         {
-            if (result.IsSuccess && statusCode.IsSuccessful()) 
+            if (result.IsSuccess && statusCode.IsSuccessful())
                 return endpoint.StatusCode(statusCode.ToInt(), result.Value);
 
             if (result.IsFailed && statusCode.IsFailed())
@@ -45,9 +45,17 @@ namespace BeautyControl.API.Features._Common.Endpoints
         private static ActionResult ErrorResponse(this EndpointBase endpoint, ResultBase result)
         {
             if (result.HasError<NotFoundError>())
-                return endpoint.NotFound();
+                return GetNotFoundError();
 
             return endpoint.BadRequest(result.GetErrorsMessages());
+
+            ActionResult GetNotFoundError()
+            {
+                if (result.HasError<NotFoundError>(e => e.Message is null))
+                    return endpoint.NotFound();
+
+                return endpoint.NotFound(result.GetErrorsMessages());
+            }
         }
     }
 }

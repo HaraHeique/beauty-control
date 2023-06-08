@@ -41,7 +41,7 @@ namespace BeautyControl.API.Features.Products.AddQuantityInStock
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string[]))]
         public async override Task<ActionResult> HandleAsync([FromRoute] Request request, CancellationToken cancellationToken = default)
         {
             if (request.Id != request.Body.ProductId)

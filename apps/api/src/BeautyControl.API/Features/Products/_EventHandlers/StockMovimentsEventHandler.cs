@@ -34,12 +34,12 @@ namespace BeautyControl.API.Features.Products._EventHandlers
         }
     }
     
-    public class RegisterOutputStockMovementWhenItemsAddedInStockEventHandler : INotificationHandler<ProductItemsRemovedFromStockEvent>
+    public class RegisterOutputStockMovementWhenItemsRemovedFromStockEventHandler : INotificationHandler<ProductItemsRemovedFromStockEvent>
     {
         private readonly AppDataContext _context;
         private readonly CurrentUser _currentUser;
 
-        public RegisterOutputStockMovementWhenItemsAddedInStockEventHandler(
+        public RegisterOutputStockMovementWhenItemsRemovedFromStockEventHandler(
             AppDataContext context, 
             CurrentUser currentUser)
         {
