@@ -7,15 +7,15 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using static BeautyControl.API.Features._Common.Endpoints.SwaggerOperations;
 
-namespace BeautyControl.API.Features.Products.AddQuantityInStock
+namespace BeautyControl.API.Features.Products.RemoveQuantityInStock
 {
 #pragma warning disable CS8618
     public sealed record Request
     {
         [FromRoute(Name = "id")] public int Id { get; init; }
-        [FromBody] public AddQuantityInStockRequest Body { get; init; }
+        [FromBody] public RemoveQuantityFromStockRequest Body { get; init; }
 
-        public record AddQuantityInStockRequest(int ProductId, int SupplierId, int Quantity);
+        public record RemoveQuantityFromStockRequest(int ProductId, int Quantity);
     }
 
     [Authorize(Roles = UserRoles.AdminName)]
@@ -29,32 +29,24 @@ namespace BeautyControl.API.Features.Products.AddQuantityInStock
 
         public Endpoint(IMediator mediator) => _mediator = mediator;
 
-        [HttpPatch("{id:int}/add-quantity")]
+        [HttpPatch("{id:int}/remove-quantity")]
         [SwaggerOperation(
-            Summary = "Adicionar produtos em estoque",
-            Description = "Adicionar unidades de um determinado produto no estoque. " +
-            "Também é passado de qual fornecedor é proveniente os produtos adicionados ao estoque.",
-            OperationId = "Products.AddQuantityInStock",
+            Summary = "Remover produtos em estoque",
+            Description = "Remover unidades de um determinado produto no estoque.",
+            OperationId = "Products.RemoveQuantityInStock",
             Tags = new[] { Tags.Products }
         )]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(string[]))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status404NotFound, Type = typeof(string[]))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async override Task<ActionResult> HandleAsync([FromRoute] Request request, CancellationToken cancellationToken = default)
         {
             if (request.Id != request.Body.ProductId)
                 return this.ErrorResponse("ID do produto passado na rota é diferente do informado no corpo da requisição.");
 
-            var command = new Command
-            {
-                ProductId = request.Body.ProductId,
-                SupplierId = request.Body.SupplierId,
-                Quantity = request.Body.Quantity
-            };
-
-            var result = await _mediator.Send(command, cancellationToken);
+            var result = await _mediator.Send(new Command(request.Id, request.Body.Quantity), cancellationToken);
 
             return this.Response(result);
         }

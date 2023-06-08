@@ -43,11 +43,34 @@ namespace BeautyControl.API.Domain.Products
 
         public void AddInStock(int quantity)
         {
-            if (quantity <= 0) throw new DomainException("A quantidade deve ser maior que zero!");
+            if (quantity <= 0) 
+                throw new DomainException("A quantidade para adição no estoque deve ser maior que zero!");
 
             Quantity += quantity;
 
-            if (Quantity <= RunningOutOfStock)
+            ChangeStatusByStockAvailability();
+        }
+        
+        public void RemoveFromStock(int quantity)
+        {
+            if (quantity <= 0)
+                throw new DomainException("A quantidade para remoção do estoque deve ser maior que zero!");
+
+            if (IsAvaibleForRemoveFromStock(quantity) == false)
+                throw new DomainException("A quantidade a ser debitada no estoque é maior que a quantidade total");
+
+            Quantity -= quantity;
+
+            ChangeStatusByStockAvailability();
+        }
+
+        public bool IsAvaibleForRemoveFromStock(int quantityToRemove) => Quantity >= quantityToRemove;
+
+        private void ChangeStatusByStockAvailability()
+        {
+            if (Quantity == 0)
+                Status = StatusStock.OutOfStock;
+            else if (Quantity <= RunningOutOfStock)
                 Status = StatusStock.RunningOutOfStock;
             else
                 Status = StatusStock.InStock;
