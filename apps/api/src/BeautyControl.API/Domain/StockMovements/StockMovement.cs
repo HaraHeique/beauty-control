@@ -6,7 +6,7 @@ using BeautyControl.API.Domain.Suppliers;
 #nullable disable
 namespace BeautyControl.API.Domain.StockMovements
 {
-    public class StockMovements : Entity
+    public class StockMovement : Entity
     {
         public int Quantity { get; private set; }
         public DateTime Date { get; private set; }
@@ -21,14 +21,14 @@ namespace BeautyControl.API.Domain.StockMovements
         public Employee Employee { get; set; }
 
         // EF Constructor
-        private StockMovements() 
+        private StockMovement() 
         {
             Date = DateTime.Now;
         }
 
-        public static StockMovements InputStockMovement(int quantity, int productId, int supplierId, int employeeId) 
+        public static StockMovement InputStockMovement(int quantity, int productId, int supplierId, int employeeId) 
         {
-            return new StockMovements()
+            return new StockMovement()
             {
                 Quantity = quantity,
                 ProductId = productId,
@@ -38,9 +38,9 @@ namespace BeautyControl.API.Domain.StockMovements
             };
         }
         
-        public static StockMovements OutputStockMovement(int quantity, int productId, int employeeId) 
+        public static StockMovement OutputStockMovement(int quantity, int productId, int employeeId) 
         {
-            return new StockMovements()
+            return new StockMovement()
             {
                 Quantity = quantity,
                 ProductId = productId,

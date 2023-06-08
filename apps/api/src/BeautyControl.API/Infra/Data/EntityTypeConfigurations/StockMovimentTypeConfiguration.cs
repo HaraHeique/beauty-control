@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
 {
-    public class StockMovimentsTypeConfiguration : IEntityTypeConfiguration<StockMovements>
+    public class StockMovimentTypeConfiguration : IEntityTypeConfiguration<StockMovement>
     {
-        public void Configure(EntityTypeBuilder<StockMovements> builder)
+        public void Configure(EntityTypeBuilder<StockMovement> builder)
         {
-            builder.ToTable(nameof(StockMovements));
+            builder.ToTable("StockMovements");
 
             builder.HasKey(sm => sm.Id);
 

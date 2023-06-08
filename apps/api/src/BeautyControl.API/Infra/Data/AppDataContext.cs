@@ -19,7 +19,7 @@ namespace BeautyControl.API.Infra.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<SupplierRating> SupplierRatings { get; set; }
-        public DbSet<StockMovements> StockMovements { get; set; }
+        public DbSet<StockMovement> StockMovements { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
