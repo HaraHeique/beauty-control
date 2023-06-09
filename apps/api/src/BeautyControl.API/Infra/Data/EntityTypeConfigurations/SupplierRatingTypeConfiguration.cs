@@ -13,15 +13,23 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
             builder.HasKey(sr => sr.Id);
 
             builder.Property(sr => sr.Id)
-                .ValueGeneratedOnAdd();
+                .ValueGeneratedOnAdd()
+                .HasColumnOrder(1);
 
-            builder.Property(sr => sr.Date)
+            builder.Property(sr => sr.FirstRatingAt)
                 .IsRequired()
-                .HasColumnType("DATETIME");
+                .HasColumnType("DATETIME")
+                .HasColumnOrder(2);
+            
+            builder.Property(sr => sr.LastRatingAt)
+                .IsRequired()
+                .HasColumnType("DATETIME")
+                .HasColumnOrder(3);
 
             builder.Property(sr => sr.Rating)
                 .IsRequired()
-                .HasColumnType("DECIMAL(18,2)");
+                .HasColumnType("DECIMAL(18,2)")
+                .HasColumnOrder(4);
 
             builder.HasOne(sr => sr.Supplier)
                 .WithMany(s => s.SupplierRatings)
