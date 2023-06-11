@@ -22,7 +22,6 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
         private readonly AppDataContext _context;
 
         private readonly IDictionary<int, Response> _employeesLookup = new Dictionary<int, Response>();
-        private readonly IDictionary<string, ProductWorkflowDataResponse> _productsLookup = new Dictionary<string, ProductWorkflowDataResponse>();
 
         public Endpoint(AppDataContext context) => _context = context;
 
@@ -62,13 +61,14 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
 	                P.Id,
 	                P.Name,
 	                P.Category,
-	                SM.Quantity
+	                Quantity = SUM(SM.Quantity)
                 FROM [BeautyControl].[Business].[Suppliers] AS S
                 LEFT JOIN [BeautyControl].[Business].[StockMovements] AS SM ON SM.SupplierId = S.Id
                 LEFT JOIN [BeautyControl].[Business].[Products] AS P ON P.Id = SM.ProductId
                 WHERE 
 	                SM.Process = @InputProcess
-                    {dynamicFilterQuery};
+	                {dynamicFilterQuery}
+                GROUP BY S.Id, S.Name, P.Id, P.Name, P.Category
             ";
         }
 
@@ -99,17 +99,7 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
                 _employeesLookup.Add(response.Id, response);
             }
 
-            if (!_productsLookup.TryGetValue($"{response.Id}_{product.Id}", out var productLookup))
-            {
-                productLookup = product;
-                _productsLookup.Add($"{response.Id}_{product.Id}", product);
-
-                employeeLookup.Products.Add(productLookup);
-
-                return employeeLookup;
-            }
-
-            productLookup.Quantity += product.Quantity;
+            employeeLookup.Products.Add(product);
 
             return employeeLookup;
         }

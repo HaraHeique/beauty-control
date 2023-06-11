@@ -48,28 +48,23 @@ namespace BeautyControl.API.Features.Reports.GetStockWorkflow
 
         private static string BuildSqlQuery(GetProductsWorkflowQuery request)
         {
-            var dynamicQuery = !request.HasParams() ? string.Empty : $@"
-                LEFT JOIN [BeautyControl].[Business].[StockMovements] AS SM ON SM.ProductId = P.Id
-                WHERE
-                    1 = 1
-	                {(request.Start.HasValue ? "AND SM.Date >= @StartDate" : string.Empty)}
-                    {(request.End.HasValue ? "AND SM.Date <= @EndDate" : string.Empty)}
+            var dynamicFilterQuery = !request.HasParams() ? string.Empty : $@"
+	            {(request.Start.HasValue ? "AND SM.Date >= @StartDate" : string.Empty)}
+                {(request.End.HasValue ? "AND SM.Date <= @EndDate" : string.Empty)}
             ";
 
             return @$"
-                SELECT DISTINCT
+                SELECT
 	                P.Id,
 	                P.Name,
 	                P.Category,
-	                Quantity = (
-		                SELECT ISNULL(SUM(SM.Quantity), 0)
-		                FROM [BeautyControl].[Business].[StockMovements] AS SM
-		                WHERE 
-			                SM.Process = @StockProcess AND 
-			                SM.ProductId = P.Id
-	                )
+	                Quantity = SUM(SM.Quantity)
                 FROM [BeautyControl].[Business].[Products] AS P
-                {dynamicQuery}
+                LEFT JOIN [BeautyControl].[Business].[StockMovements] AS SM ON SM.ProductId = P.Id
+                WHERE
+	                SM.Process = @StockProcess
+                    {dynamicFilterQuery}
+                GROUP BY P.Id, P.Name, P.Category
                 ORDER BY Quantity DESC, P.Name;
             ";
         }
