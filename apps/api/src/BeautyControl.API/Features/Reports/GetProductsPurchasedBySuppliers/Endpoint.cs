@@ -7,9 +7,8 @@ using Swashbuckle.AspNetCore.Annotations;
 using BeautyControl.API.Infra.Data;
 using Dapper;
 using BeautyControl.API.Domain.StockMovements;
-using BeautyControl.API.Features.Reports.GetStockWorkflow;
 using Microsoft.EntityFrameworkCore;
-using BeautyControl.API.Domain.Suppliers;
+using BeautyControl.API.Features.Reports._Common;
 
 namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
 {
@@ -18,9 +17,12 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
     [Route(Routes.ReportsUri)]
     public class Endpoint : EndpointBaseAsync
         .WithRequest<Query>
-        .WithActionResult<Response>
+        .WithActionResult<IEnumerable<Response>>
     {
         private readonly AppDataContext _context;
+
+        private readonly IDictionary<int, Response> _employeesLookup = new Dictionary<int, Response>();
+        private readonly IDictionary<string, ProductWorkflowDataResponse> _productsLookup = new Dictionary<string, ProductWorkflowDataResponse>();
 
         public Endpoint(AppDataContext context) => _context = context;
 
@@ -32,22 +34,18 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
             Tags = new[] { Tags.Reports }
         )]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
-        public async override Task<ActionResult<Response>> HandleAsync([FromQuery] Query request, CancellationToken cancellationToken = default)
+        public async override Task<ActionResult<IEnumerable<Response>>> HandleAsync([FromQuery] Query request, CancellationToken cancellationToken = default)
         {
             using var dbConnection = _context.Database.GetDbConnection();
 
             var sqlQuery = BuildSqlQuery(request);
 
-            var dataModels = await dbConnection.QueryAsync<RootDataModel, SupplierDataModel, ProductDataModel, RootDataModel>(sqlQuery, (root, supplier, product) => 
-            {
-                root.Supplier = supplier;
-                root.Product = product;
+            await dbConnection.QueryAsync<Response, ProductWorkflowDataResponse, Response>(
+                sqlQuery, map: MapResponse, 
+                splitOn: "Id,Id", param: BuildParams(request)
+            );
 
-                return root;
-
-            }, splitOn: "Id,SupplierId,ProductId", param: BuildParams(request));
-
-            return Ok();
+            return Ok(_employeesLookup.Values);
         }
 
         private static string BuildSqlQuery(Query request)
@@ -58,15 +56,13 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
             ";
 
             return @$"
-                S.Id AS SupplierId,
-	            S.Id,
-	            S.Name,
-	            P.Id AS ProductId,
-	            P.Id,
-	            P.Name,
-	            P.Category,
-	            SM.Id,
-	            SM.Quantity
+                SELECT
+	                S.Id,
+	                S.Name,
+	                P.Id,
+	                P.Name,
+	                P.Category,
+	                SM.Quantity
                 FROM [BeautyControl].[Business].[Suppliers] AS S
                 LEFT JOIN [BeautyControl].[Business].[StockMovements] AS SM ON SM.SupplierId = S.Id
                 LEFT JOIN [BeautyControl].[Business].[Products] AS P ON P.Id = SM.ProductId
@@ -93,6 +89,29 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
                 dynamicParams.Add("@EndDate", endDate.Value);
 
             return dynamicParams;
+        }
+
+        private Response MapResponse(Response response, ProductWorkflowDataResponse product)
+        {
+            if (!_employeesLookup.TryGetValue(response.Id, out var employeeLookup))
+            {
+                employeeLookup = response;
+                _employeesLookup.Add(response.Id, response);
+            }
+
+            if (!_productsLookup.TryGetValue($"{response.Id}_{product.Id}", out var productLookup))
+            {
+                productLookup = product;
+                _productsLookup.Add($"{response.Id}_{product.Id}", product);
+
+                employeeLookup.Products.Add(productLookup);
+
+                return employeeLookup;
+            }
+
+            productLookup.Quantity += product.Quantity;
+
+            return employeeLookup;
         }
     }
 }
