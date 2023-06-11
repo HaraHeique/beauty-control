@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Features\Reports\GetStockWorkflow\Query.cs~RF1a3a3c5c.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Ardalis.ApiEndpoints" Version="4.0.1" />
     <PackageReference Include="Ardalis.ApiEndpoints.Swashbuckle" Version="4.0.1" />
     <PackageReference Include="Dapper" Version="2.0.123" />

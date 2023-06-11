@@ -7,6 +7,7 @@
             public const string Account = nameof(Account);
             public const string Products = nameof(Products);
             public const string Suppliers = nameof(Suppliers);
+            public const string Reports = nameof(Reports);
         }
     }
 }

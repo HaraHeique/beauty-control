@@ -7,5 +7,6 @@
         public const string AccountUri = $"{baseUri}/account";
         public const string ProductsUri = $"{baseUri}/products";
         public const string SuppliersUri = $"{baseUri}/suppliers";
+        public const string ReportsUri = $"{baseUri}/reports";
     }
 }
