@@ -1,7 +1,10 @@
-﻿using BeautyControl.API.Features._Common.Contracts;
+﻿using BeautyControl.API.Domain._Common.ValueObjects;
+using BeautyControl.API.Domain.Suppliers;
+using BeautyControl.API.Features._Common.Contracts;
 using BeautyControl.API.Infra.Data;
 using Dapper;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BeautyControl.API.Features.Suppliers.UpdateSupplier
 {
@@ -20,14 +23,16 @@ namespace BeautyControl.API.Features.Suppliers.UpdateSupplier
                 request.Id,
                 request.Name,
                 request.Observation,
-                request.Telephone
+                Telephones = JsonConvert.SerializeObject(Telephone.Create(request.Telephones)),
+                Emails = JsonConvert.SerializeObject(Email.Create(request.Emails))
             };
 
             return await dbConnection.ExecuteAsync(@"
                 UPDATE [BeautyControl].[Business].[Suppliers]
                 SET [Name] = @Name,
                     [Observation] = @Observation,
-                    [Telephone] = @Telephone
+                    [Telephones] = @Telephones,
+                    [Emails] = @Emails
                 WHERE Id = @Id
             ", @params);
         }

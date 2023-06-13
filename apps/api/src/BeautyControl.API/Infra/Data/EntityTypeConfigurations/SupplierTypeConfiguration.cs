@@ -23,15 +23,9 @@ namespace BeautyControl.API.Infra.Data.EntityTypeConfigurations
                 .IsRequired()
                 .HasColumnType("VARCHAR(MAX)");
 
-            builder.OwnsOne(s => s.Telephone, ownerBuilder =>
-            {
-                ownerBuilder.Property(t => t.RawNumber)
-                    .IsRequired(required: true)
-                    .HasColumnName("Telephone")
-                    .HasColumnType("VARCHAR(16)");
+            builder.OwnsMany(s => s.Telephones, ownerBuilder => ownerBuilder.ToJson());
 
-                ownerBuilder.Ignore(t => t.FormattedNumber);
-            });
+            builder.OwnsMany(s => s.Emails, ownerBuilder => ownerBuilder.ToJson());
 
             builder.Property(s => s.AverageRating)
                 .IsRequired()

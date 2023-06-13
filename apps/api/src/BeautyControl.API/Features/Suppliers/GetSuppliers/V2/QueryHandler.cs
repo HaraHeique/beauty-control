@@ -25,7 +25,8 @@ namespace BeautyControl.API.Features.Suppliers.GetSuppliers.V2
                     [Id],
                     [Name],
                     [Observation],
-                    [Telephone],
+                    TelephonesJson = [Telephones],
+                    EmailsJson = [Emails],
                     [AverageRating]
                 FROM [BeautyControl].[Business].[Suppliers] 
                 ORDER BY [Name] 
@@ -35,11 +36,11 @@ namespace BeautyControl.API.Features.Suppliers.GetSuppliers.V2
                 SELECT COUNT(Id) FROM [BeautyControl].[Business].[Suppliers];
             ", param: @params);
 
-            var response = await multipleQueries.ReadAsync<SupplierResponse>();
+            var dataModelResponse = await multipleQueries.ReadAsync<SupplierDataModel>();
             var totalItens = await multipleQueries.ReadFirstAsync<int>();
 
             return Result.Ok(new PaginatedResponse<SupplierResponse>(
-                items: response.ToList(), totalItens, 
+                items: dataModelResponse.MapToResponse(), totalItens, 
                 request.PageNumber, request.PageSize)
             );
         }

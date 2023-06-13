@@ -16,12 +16,11 @@ namespace BeautyControl.API.Features.Suppliers.GetSuppliers.V1
             return await _context.Suppliers
                 .AsNoTracking()
                 .OrderBy(s => s.Name)
-                .Select(s => new SupplierResponse
+                .Select(s => new SupplierResponse(s.Telephones, s.Emails)
                 {
                     Id = s.Id,
                     Name = s.Name,
                     Observation = s.Observation,
-                    Telephone = s.Telephone.FormattedNumber,
                     AverageRating = s.AverageRating
                 })
                 .ToListAsync(cancellationToken: cancellationToken);

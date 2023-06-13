@@ -1,4 +1,5 @@
-﻿using BeautyControl.API.Domain.Suppliers;
+﻿using BeautyControl.API.Domain.Employees;
+using BeautyControl.API.Domain.Suppliers;
 using FluentValidation;
 
 namespace BeautyControl.API.Features.Suppliers._Common
@@ -7,7 +8,8 @@ namespace BeautyControl.API.Features.Suppliers._Common
     {
         public string? Name { get; init; }
         public string? Observation { get; init; }
-        public string? Telephone { get; init; }
+        public string[] Telephones { get; init; } = Array.Empty<string>();
+        public string[] Emails { get; init; } = Array.Empty<string>();
     }
 
     public class BasicInfoSupplierCommandValidation : AbstractValidator<BasicInfoSupplierCommand>
@@ -24,9 +26,23 @@ namespace BeautyControl.API.Features.Suppliers._Common
                 .NotEmpty().WithMessage(messageRequiredField).WithName("observação")
                 .MaximumLength(10000).WithMessage("O campo observação deve no máximo {MaxLength} caracteres.");
 
-            RuleFor(c => c.Telephone)
-                .NotEmpty().WithMessage(messageRequiredField).WithName("telefone")
-                .Must(Telephone.Validate!).WithName("O campo telefone não está com tamanho e formato válido.");
+            RuleFor(c => c.Telephones)
+                .NotEmpty().WithMessage(messageRequiredField).WithName("telefones")
+                .Must(telephones => telephones.Length == telephones.Distinct().Count()).WithMessage("Não pode conter telefones repetidos.")
+                .ForEach(rule =>
+                {
+                    rule.Must(Telephone.Validate!)
+                        .WithMessage("O telefone {PropertyValue} não está com tamanho e formato válido.");
+                });
+            
+            RuleFor(c => c.Emails)
+                .NotEmpty().WithMessage(messageRequiredField).WithName("emails")
+                .Must(emails => emails.Length == emails.Distinct().Count()).WithMessage("Não pode conter emails repetidos.")
+                .ForEach(rule =>
+                {
+                    rule.EmailAddress()
+                        .WithMessage("O email {PropertyValue} não é válido.");
+                });
         }
     }
 }

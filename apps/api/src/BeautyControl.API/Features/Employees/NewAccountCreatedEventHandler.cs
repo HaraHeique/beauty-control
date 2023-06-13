@@ -1,4 +1,5 @@
-﻿using BeautyControl.API.Domain.Employees;
+﻿using BeautyControl.API.Domain._Common.ValueObjects;
+using BeautyControl.API.Domain.Employees;
 using BeautyControl.API.Infra.Data;
 using MediatR;
 

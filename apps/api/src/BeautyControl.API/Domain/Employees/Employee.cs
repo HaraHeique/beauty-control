@@ -1,4 +1,5 @@
 ﻿using BeautyControl.API.Domain._Common;
+using BeautyControl.API.Domain._Common.ValueObjects;
 
 #nullable disable
 namespace BeautyControl.API.Domain.Employees

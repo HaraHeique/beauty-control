@@ -1,25 +1,30 @@
-﻿using BeautyControl.API.Domain._Common;
-using BeautyControl.API.Domain._Common.Exceptions;
+﻿using BeautyControl.API.Domain._Common.Exceptions;
+using BeautyControl.API.Domain.Suppliers;
 using System.Text.RegularExpressions;
 
 #pragma warning disable CS8618
-namespace BeautyControl.API.Domain.Employees
+namespace BeautyControl.API.Domain._Common.ValueObjects
 {
     public record class Email : IValueObject
     {
         public const int MaxLength = 254;
         public const int MinLength = 5;
 
-        public string Address { get; }
+        public string Address { get; private set; }
 
         // EF Constructor
         private Email() { }
 
         public Email(string address)
         {
-            if (!Validate(address)) throw new DomainException("E-mail fornecido inválido");
+            if (!Validate(address))
+                throw new DomainException("E-mail fornecido inválido");
+
             Address = address;
         }
+
+        public static IEnumerable<Email> Create(IEnumerable<string> emails)
+            => emails.Select(item => new Email(item));
 
         public static bool Validate(string address)
         {

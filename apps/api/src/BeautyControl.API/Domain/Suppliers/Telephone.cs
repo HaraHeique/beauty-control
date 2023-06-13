@@ -1,22 +1,26 @@
-﻿using BeautyControl.API.Domain._Common;
-using BeautyControl.API.Domain._Common.Exceptions;
+﻿using BeautyControl.API.Domain._Common.Exceptions;
+using BeautyControl.API.Domain._Common.ValueObjects;
 using System.Text.RegularExpressions;
 
+#pragma warning disable CS8618 
 namespace BeautyControl.API.Domain.Suppliers
 {
     public record class Telephone : IValueObject
     {
-        public string RawNumber { get; }
+        public string RawNumber { get; private set; }
 
         public string FormattedNumber => GetFormattedNumber();
 
         // EF Constructor
         private Telephone() { }
 
-        public Telephone(string phoneNumber)
+        public Telephone(string rawNumber)
         {
-            RawNumber = Validate(phoneNumber) ? phoneNumber : throw new DomainException("Número de telefone inválido");
+            RawNumber = Validate(rawNumber) ? rawNumber : throw new DomainException("Número de telefone inválido");
         }
+
+        public static IEnumerable<Telephone> Create(IEnumerable<string> telephones) 
+            => telephones.Select(item => new Telephone(item));
 
         public static bool Validate(string phoneNumber)
         {

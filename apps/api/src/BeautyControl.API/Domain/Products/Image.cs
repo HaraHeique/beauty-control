@@ -1,5 +1,5 @@
-﻿using BeautyControl.API.Domain._Common;
-using BeautyControl.API.Domain._Common.Exceptions;
+﻿using BeautyControl.API.Domain._Common.Exceptions;
+using BeautyControl.API.Domain._Common.ValueObjects;
 using System.Text.RegularExpressions;
 
 #pragma warning disable CS8618

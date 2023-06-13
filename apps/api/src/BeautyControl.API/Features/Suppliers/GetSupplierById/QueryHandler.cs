@@ -17,14 +17,13 @@ namespace BeautyControl.API.Features.Suppliers.GetSupplierById
         {
             var queryResponse = await _context.Suppliers
                 .AsNoTracking()
-                .Where(p => p.Id == request.Id)
-                .Select(p => new SupplierResponse
+                .Where(s => s.Id == request.Id)
+                .Select(s => new SupplierResponse(s.Telephones, s.Emails)
                 {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Observation = p.Observation,
-                    Telephone = p.Telephone.FormattedNumber,
-                    AverageRating = p.AverageRating
+                    Id = s.Id,
+                    Name = s.Name,
+                    Observation = s.Observation,
+                    AverageRating = s.AverageRating
                 })
                 .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 

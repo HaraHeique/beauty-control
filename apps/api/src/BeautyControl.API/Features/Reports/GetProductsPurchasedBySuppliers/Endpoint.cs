@@ -32,7 +32,7 @@ namespace BeautyControl.API.Features.Reports.GetProductsPurchasedBySuppliers
             OperationId = "Reports.GetProductsPurchasedBySuppliers",
             Tags = new[] { Tags.Reports }
         )]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Response))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(IEnumerable<Response>))]
         public async override Task<ActionResult<IEnumerable<Response>>> HandleAsync([FromQuery] Query request, CancellationToken cancellationToken = default)
         {
             using var dbConnection = _context.Database.GetDbConnection();

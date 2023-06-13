@@ -1,5 +1,6 @@
 ﻿using BeautyControl.API.Domain._Common;
 using BeautyControl.API.Domain._Common.Exceptions;
+using BeautyControl.API.Domain._Common.ValueObjects;
 using BeautyControl.API.Domain.Employees;
 
 #nullable disable
@@ -9,7 +10,8 @@ namespace BeautyControl.API.Domain.Suppliers
     {
         public string Name { get; set; }
         public string Observation { get; set; }
-        public Telephone Telephone { get; set; }
+        public List<Telephone> Telephones { get; set; }
+        public List<Email> Emails { get; set; }
         public decimal AverageRating { get; private set; }
         public DateTime CreationDate { get; private set; }
 
@@ -17,16 +19,14 @@ namespace BeautyControl.API.Domain.Suppliers
         private readonly List<SupplierRating> _supplierRatings;
 
         // EF Constructor
-        private Supplier()
-        {
-            _supplierRatings = new List<SupplierRating>();
-        }
+        private Supplier() => _supplierRatings = new List<SupplierRating>();
 
-        public Supplier(string name, string observation, Telephone telephone) : this()
-        {
+        public Supplier(string name, string observation, List<Telephone> telephones, List<Email> emails) : this()
+        { 
             Name = name;
             Observation = observation;
-            Telephone = telephone;
+            Telephones = telephones;
+            Emails = emails;
             AverageRating = 0M;
             CreationDate = DateTime.Now;
         }

@@ -1,4 +1,5 @@
-﻿using BeautyControl.API.Domain.Suppliers;
+﻿using BeautyControl.API.Domain._Common.ValueObjects;
+using BeautyControl.API.Domain.Suppliers;
 using BeautyControl.API.Infra.Data;
 using FluentResults;
 using MediatR;
@@ -13,8 +14,11 @@ namespace BeautyControl.API.Features.Suppliers.CreateSupplier
 
         public async Task<Result<int>> Handle(Command request, CancellationToken cancellationToken)
         {
-            var telephone = new Telephone(request.Telephone!);
-            var supplier = new Supplier(request.Name, request.Observation, telephone);
+            var supplier = new Supplier(
+                request.Name, request.Observation, 
+                Telephone.Create(request.Telephones).ToList(), 
+                Email.Create(request.Emails).ToList()
+            );
 
             await _context.Suppliers.AddAsync(supplier, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
