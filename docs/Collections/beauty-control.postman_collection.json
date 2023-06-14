@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "beb9094c-1031-4316-b48b-dc70d21134d5",
+		"_postman_id": "52e3dbe9-9e02-440c-858f-b915709f857d",
 		"name": "beauty-control",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14038161"
 	},
 	"item": [
 		{
@@ -170,6 +171,118 @@
 							"response": []
 						},
 						{
+							"name": "/{id}/add-quantity",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": 2,\r\n    \"supplierId\": 5,\r\n    \"quantity\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/2/add-quantity",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products",
+										"2",
+										"add-quantity"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}/remove-quantity",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"productId\": 2,\r\n    \"quantity\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/2/remove-quantity",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"products",
+										"2",
+										"remove-quantity"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "/{id}",
 							"event": [
 								{
@@ -201,7 +314,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/9",
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/products/20",
 									"host": [
 										"{{host-local-ssl}}"
 									],
@@ -209,7 +322,7 @@
 										"{{api-prefix}}",
 										"v1",
 										"products",
-										"9"
+										"20"
 									]
 								}
 							},
@@ -853,7 +966,7 @@
 					"response": []
 				},
 				{
-					"name": "/users",
+					"name": "/users/{id}",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -900,7 +1013,7 @@
 					"response": []
 				},
 				{
-					"name": "/users/{id}",
+					"name": "/users",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -971,7 +1084,7 @@
 			]
 		},
 		{
-			"name": "Supplier",
+			"name": "Suppliers",
 			"item": [
 				{
 					"name": "V1",
@@ -1009,7 +1122,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Fornecedor 2\",\r\n    \"observation\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\r\n    \"telephone\": \"27998808574\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Natura de Feu Pinky\",\r\n    \"observation\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\",\r\n    \"telephones\": [\"27998808574\", \"5534257635\"],\r\n    \"emails\": [\"naturapink@org.com.br\", \"natura.pink@gmail.com\"]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1107,7 +1220,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/1",
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/10",
 									"host": [
 										"{{host-local-ssl}}"
 									],
@@ -1115,7 +1228,7 @@
 										"{{api-prefix}}",
 										"v1",
 										"suppliers",
-										"1"
+										"10"
 									]
 								}
 							},
@@ -1154,7 +1267,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": 2,\r\n    \"name\": \"Joaquinas Fornecimento\",\r\n    \"observation\": \"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout\",\r\n    \"telephone\": \"27998808575\"\r\n}",
+									"raw": "{\r\n    \"id\": 11,\r\n    \"name\": \"Joaquinas Fornecimento\",\r\n    \"observation\": \"It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout\",\r\n    \"telephones\": [\"27998808574\", \"3534257660\"],\r\n    \"emails\": [\"natura.pink@org.com.br\", \"natura.pink@hotmail.com\", \"natura.marketing@teste.com\"]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1162,7 +1275,7 @@
 									}
 								},
 								"url": {
-									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/2",
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/11",
 									"host": [
 										"{{host-local-ssl}}"
 									],
@@ -1170,7 +1283,63 @@
 										"{{api-prefix}}",
 										"v1",
 										"suppliers",
-										"2"
+										"11"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/{id}/rating",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{bearer-schema}} {{jwt-token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 2,\r\n    \"rating\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/2/rating",
+									"host": [
+										"{{host-local-ssl}}"
+									],
+									"path": [
+										"{{api-prefix}}",
+										"v1",
+										"suppliers",
+										"2",
+										"rating"
 									]
 								}
 							},
@@ -1208,7 +1377,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/1",
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/suppliers/10",
 									"host": [
 										"{{host-local-ssl}}"
 									],
@@ -1216,7 +1385,7 @@
 										"{{api-prefix}}",
 										"v1",
 										"suppliers",
-										"1"
+										"10"
 									]
 								}
 							},
@@ -1259,7 +1428,7 @@
 									}
 								],
 								"url": {
-									"raw": "{{host-local-ssl}}/{{api-prefix}}/v2/suppliers?pageNumber=-2&pageSize=1",
+									"raw": "{{host-local-ssl}}/{{api-prefix}}/v2/suppliers?pageNumber=1&pageSize=10",
 									"host": [
 										"{{host-local-ssl}}"
 									],
@@ -1271,12 +1440,12 @@
 									"query": [
 										{
 											"key": "pageNumber",
-											"value": "-2",
+											"value": "1",
 											"description": "Número da página desejada"
 										},
 										{
 											"key": "pageSize",
-											"value": "1",
+											"value": "10",
 											"description": "Quantidade de itens da página desejada"
 										}
 									]
@@ -1285,6 +1454,227 @@
 							"response": []
 						}
 					]
+				}
+			]
+		},
+		{
+			"name": "Reports",
+			"item": [
+				{
+					"name": "/stock-workflow",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/reports/stock-workflow?start=2023-01-01T00:00:00&end=2023-10-01T00:00:00",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"reports",
+								"stock-workflow"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "2023-01-01T00:00:00"
+								},
+								{
+									"key": "end",
+									"value": "2023-10-01T00:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/products-purchased-by-suppliers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/reports/products-purchased-by-suppliers?start=2023-01-01T00:00:00&end=2023-10-01T00:00:00",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"reports",
+								"products-purchased-by-suppliers"
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "2023-01-01T00:00:00"
+								},
+								{
+									"key": "end",
+									"value": "2023-10-01T00:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/best-suppliers",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/reports/best-suppliers?rating=3.0",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"reports",
+								"best-suppliers"
+							],
+							"query": [
+								{
+									"key": "rating",
+									"value": "3.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/employees-by-positions",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{bearer-schema}} {{jwt-token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host-local-ssl}}/{{api-prefix}}/v1/reports/employees-by-positions?active=false",
+							"host": [
+								"{{host-local-ssl}}"
+							],
+							"path": [
+								"{{api-prefix}}",
+								"v1",
+								"reports",
+								"employees-by-positions"
+							],
+							"query": [
+								{
+									"key": "active",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
