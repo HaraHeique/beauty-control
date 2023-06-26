@@ -1,4 +1,4 @@
-# Beauty Control
+# Beauty Control com VSA (Vertical Slice Architecture)
 
 Este projeto foi desenvolvido na faculdade de Bacharelado Sistemas de Informação, IFES Campus Serra. A ideia deste novo repositório é centralizar todo código fonte, modelagem e demais artefatos em único repositório, assim como também aplicar o estilo arquitetural chamado **Vertical Slice Architecture**. Abaixo contém as referências do projeto:
 
