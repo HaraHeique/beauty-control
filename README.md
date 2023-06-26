@@ -38,13 +38,13 @@ Abaixo conterá os diagramas da modelagem estrutural e comportamental.
 O Vertical Slice Architecture é considerado um estilo arquitetural que se preocupa com dois aspectos fundamentais em arquitetura de software:
 
 - **Acoplamento**: grau de dependência entre elementos em um software;
-- **Coesão**: grau em que os elementos dentro de um software pertencem juntos.
+- **Coesão**: grau em que os elementos dentro de um software pertencem juntos (correlação forte e direta entre os elementos).
 
 Assim diferentemente das arquiteturas em camadas, e suas variações, das quais se preocupam demasiadamente em acoplamento (*direction dependencies* e [*separtion of concerns*](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)), o Vertical Slice também se preocupa com o acoplamento, mas com foco especial na coesão.
 
 Isto se dá devido o demasiado foco nas **capacidades do negócio**, ou seja, no que a aplicação faz e provê para o negócio. Logo acaba sendo ideias para sistemas que **atacam o problema do domínio que é desejado resolver**, dos quais são a grande maioria no mercado. Como consequência dessas características a forma como o código é estruturado muda, passando a ser **organizado por *features*** ao invés de ser por *layers*. 
 
-Abaixo contém uma tabela comparando as N arquitetura em camadas em relação ao Vertical Slice:
+Abaixo contém uma tabela comparando as N arquiteturas em camadas em relação ao Vertical Slice:
 
 N Layers (Clean, Hexagonal, Onion, 3 layers e afins)|Vertical Slice Architecture
 ---|---
@@ -60,7 +60,7 @@ Abaixo um conjunto de referências e fontes sobre Vertical Slice Architecture:
 
 - [Fontes extraídas e agrupadas em único arquivo PDF no projeto](./docs/Referencias/Fontes%20Vertical%20Slice%20Architecture.pdf);
 - [Jimmy Bogard - Vertical Slice Architecture](https://jimmybogard.com/vertical-slice-architecture/);
-- [Restructuring to a Vertical Slice Architecture](https://codeopinion.com/restructuring-to-a-vertical-slice-architecture/);
+- [Derek Comartin - Restructuring to a Vertical Slice Architecture](https://codeopinion.com/restructuring-to-a-vertical-slice-architecture/);
 - [How to Implement Vertical Slice Architecture](https://garywoodfine.com/implementing-vertical-slice-architecture/);
 - [Vertical Slice Architecture in ASP.NET Core](https://code-maze.com/vertical-slice-architecture-aspnet-core/);
 - [Tired of Layers? Vertical Slice Architecture to the rescue!](https://www.youtube.com/watch?v=lsddiYwWaOQ&list=PLfq-iighJjSH7qsHi_IFZt2ySa27KZQZ9&index=8);
