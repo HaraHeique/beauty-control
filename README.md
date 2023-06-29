@@ -76,6 +76,7 @@ Abaixo uma lista de à fazeres no projeto:
 - Fazer deploy da aplicação em alguma plataforma de computação em nuvem, tais como: Azure, Amazon AWS, Google Cloud e afins;
 - Criar/Ajustar o DOCKERFILE da aplicação back-end;
 - Criar o docker-compose para todos os componentes envolvidos para facilitar a implantação e execução da aplicação;
+- Adicionar configuração de [Health Checks](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-7.0) na aplicação p/ os componentes de infraestrutura;
 - Implementar os testes automatizados na aplicação back-end levando em considerações as métricas de acomplamento e o que é sugerido pelo *Jimmy Bogard*:
   - Testes unitários: devem ser implementados em componentes mais críticos, estáveis e que **realmente contém lógicas**. Exemplos: modelos de domínios em geral (seja anêmico ou rico), utilitários e afins;
   - Testes de integração: aplicados a componentes menos estáveis, menos críticos e que atuam geralmente como orquestradores. Exemplos: nas bordas da aplicação geralmente (comunicação com componentes de infra), nos handlers comumemente conhecidos no Vertical Slice e em serviços **orquestradores** em geral.
