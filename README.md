@@ -51,7 +51,7 @@ N Layers (Clean, Hexagonal, Onion, 3 layers e afins)|Vertical Slice Architecture
 Foco demasiado em acoplamento|Acoplamento limitado no escopo da feature com foco demasiado em coesão
 [*separtion of concerns*](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) (acoplamento e dependencies directions)|Coesão funcional (grupo relacionado de operações baseado em tarefas)
 Separação em cada camada para permitir que elas mudem independentemente. Porém as alterações de único use case (feature) são feitas em todas as camadas juntas|Tudo que muda junto (features) fica/pertence junto.
-Médio/Alto uso de abstrações para manter as camadas internas “limpas” e isoladas do “mundo externo”|Baixo ou nenhum uso de abstrações. Caso use é mais para modularização e fácil uso de uma interface limpa e amigável
+Médio/Alto uso de abstrações para manter as camadas internas “limpas” e isoladas do “mundo externo”|Baixo ou nenhum uso de abstrações. Caso use é mais para modularização e fácil uso de uma interface limpa, simples e amigável
 Bom em cenários que há maior complexidade em produtos mais técnicos e que são usados por outros produtos|Bom em cenários que focam no domínio (core), onde as funcionalidades específicas do negócio são fundamentais (produto para cliente final)
 Foca mais em **technical concerns** (preocupação técnicas)|Foca mais em **business concerns** e capabilities (preocupações nas capacidades do negócio)
 Organização estrutural do código **por camadas**|Organização estrutural do código **por features**
@@ -71,12 +71,33 @@ Abaixo um conjunto de referências e fontes sobre Vertical Slice Architecture:
 
 Abaixo uma lista de à fazeres no projeto:
 
+- Atualizar para [versão mais recente do .Net e linguagem do C#](https://dotnet.microsoft.com/pt-br/download) até mesmo usando as versões preview;
+  - Aproveite aqui para aprender e utilizar as novas features do ASP.NET Core;
+  - Aproveita aqui para aprender e utilizar as novas features do C#.
+- Dividir a aplicação em contextos delimitados (DDD pattern), onde cada contexto representa um subdomínio alinhado com as intenções, necessidades e conhecimento do negócio. Cada subdomínio é tratado como uma aplicação à parte e isolada (indepentende), contendo um conjunto de funcionalidades que pertencem juntas (coesas);
+  - Pode-se utilizar um estilo arquitetural como o monolíto modular (também conhecido como losing coupled monolith);
+  - Inicialmente pode-se dividir entre: Identidade (Técnico), Report (Técnico), XXXXX (Negócio);
+  - Detalhes de como definir Bounded Contexts: https://learn.microsoft.com/pt-br/dotnet/architecture/microservices/architect-microservice-container-applications/identify-microservice-domain-model-boundaries
 - Avaliar e desenvolver os TODO's que estão dentro do código fonte do back-end;
+- Verificar se tem algum ponto que daria para usar cache
+  - Neste caso usar o Redis;
+  - Colocar cache na frente da aplicação ou do mecanismo de persistencia utilizado
+- Verificar se daria para usar banco de dados NoSql
+  - Neste caso pode ser usando MongoDB ou Redis;
+  - Muito provavelmente NÃO PRECISA para esta aplicação literalmente, pois bases NoSql faz sentido quando temos alta escalabilidade, alta performance e alto volume de dados (ser schemeless também);
+- Verificar se daria para usar um Search Engine
+  - Neste caso pode ser usando o Elastic Search;
+  - Usar aqui na ideia de ser um full-text search para busca e pesquisa em um grande volume de dados;
+  - Provavelmente aqui literalmente NÃO PRECISA também.
 - Adicionar o projeto Web do [Front-end](https://github.com/LarissaMotta/devweb-front-end) a este projeto, mudando o que for necessário;
 - Fazer deploy da aplicação em alguma plataforma de computação em nuvem, tais como: Azure, Amazon AWS, Google Cloud e afins;
+  - Configurar CI/CD usando o Github Actions que é fácil e já tudo centralizado no Github
 - Criar/Ajustar o DOCKERFILE da aplicação back-end;
-- Criar o docker-compose para todos os componentes envolvidos para facilitar a implantação e execução da aplicação;
-- Adicionar configuração de [Health Checks](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-7.0) na aplicação p/ os componentes de infraestrutura;
+- Criar o docker-compose para todos os componentes envolvidos para facilitar a implantação e execução de todos os componentes necessários da aplicação;
+- Adicionar configuração de [Health Checks](https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/health-checks?view=aspnetcore-8.0) na aplicação p/ os componentes de infraestrutura;
+- Adicionar observalidade para a aplicação usando [OpenTelemetry](https://github.com/open-telemetry)
+  - OpenTelemetry é muito bom, pois fornece uma padronização para geração, coleta e exportação de dados de telemetria, que são: logs, tracing e metrics;
+  - Pode-se usar o .Net Aspire, onde ele fornece uma Stack production ready para aplicações distribuídas em conjunto com ferramentas de observabilidade;
 - Implementar os testes automatizados na aplicação back-end levando em considerações as métricas de acomplamento e o que é sugerido pelo *Jimmy Bogard*:
   - Testes unitários: devem ser implementados em componentes mais críticos, estáveis e que **realmente contém lógicas**. Exemplos: modelos de domínios em geral (seja anêmico ou rico), utilitários e afins;
   - Testes de integração: aplicados a componentes menos estáveis, menos críticos e que atuam geralmente como orquestradores. Exemplos: nas bordas da aplicação geralmente (comunicação com componentes de infra), nos handlers comumemente conhecidos no Vertical Slice e em serviços **orquestradores** em geral.
